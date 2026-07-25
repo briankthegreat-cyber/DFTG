@@ -3,3 +3,4 @@ crosswalks/
 __pycache__/
 *_DEIDENTIFIED*.xlsx
 *_REIDENTIFIED*.xlsx
+.venv/
