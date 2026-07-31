@@ -17,6 +17,26 @@ Campaign, Crew, Workshop, Collection, settings, pack-reveal recovery, and
 versioned local progress are connected in the same interface. Mouse, keyboard,
 touch, reduced motion, and high-contrast presentation are supported.
 
+## 3D battlefield
+
+The board is rendered by a live three.js miniature layer
+(`app/BattlefieldMiniatures3D.tsx` + `app/battle3d/`):
+
+- Eight bespoke articulated hero rigs (tesla staff, living lantern-shield,
+  bird courier, bell-hammer, ink wisp, pot-stack chef, prism bow, rail golem)
+  with idle flourishes, walk cycles, attack wind-ups, and target facing.
+- Eight distinct Duskborn monster models, each with its own locomotion:
+  hovering motes, flapping glarewings, stomping hollow knights, gliding
+  whisperers, scuttling mimic masks, brick-hauling masons, slithering
+  parcel leeches, and hopping bell husks.
+- Full lifecycle staging: rift spawn portals, hit flashes with recoil,
+  death dissolves with particle bursts, and escape fade-outs.
+- Per-hero attack effects: chain lightning, prism arrows, ricochet darts,
+  mark runes, lobbed fire flasks, traveling hammer shockwaves, root snares,
+  and rail charges — plus merge celebration bursts, orbiting star gems,
+  work-phase hammer sparks, and ambient fireflies.
+- A single pooled additive particle system keeps everything mobile-friendly.
+
 ## Centralized tuning
 
 Authoritative campaign, character, reward, merge, Hearth Pack odds, guarantee,
