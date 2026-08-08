@@ -24,17 +24,17 @@ and browser-side GLB hash verification.
 
 ## Commands
 
-| Command | What it does |
-| --- | --- |
-| `pnpm dev` | Vite dev server for `apps/web` |
-| `pnpm build` | Production build |
-| `pnpm preview` | Serve the production build (port 4173) |
-| `pnpm typecheck` | Strict `tsc --noEmit` in every package |
-| `pnpm lint` | ESLint (flat config) across the workspace |
-| `pnpm test` | Vitest unit/component suites (all packages) |
-| `pnpm test:e2e` | Playwright end-to-end (builds + serves automatically) |
+| Command                        | What it does                                                                                 |
+| ------------------------------ | -------------------------------------------------------------------------------------------- |
+| `pnpm dev`                     | Vite dev server for `apps/web`                                                               |
+| `pnpm build`                   | Production build                                                                             |
+| `pnpm preview`                 | Serve the production build (port 4173)                                                       |
+| `pnpm typecheck`               | Strict `tsc --noEmit` in every package                                                       |
+| `pnpm lint`                    | ESLint (flat config) across the workspace                                                    |
+| `pnpm test`                    | Vitest unit/component suites (all packages)                                                  |
+| `pnpm test:e2e`                | Playwright end-to-end (builds + serves automatically)                                        |
 | `pnpm validate:anatomy-assets` | Validate the asset tree (add `-- --policy external_preview` to run the release/license gate) |
-| `pnpm generate:fixture` | Regenerate the committed development fixture deterministically |
+| `pnpm generate:fixture`        | Regenerate the committed development fixture deterministically                               |
 
 ## Repository map
 

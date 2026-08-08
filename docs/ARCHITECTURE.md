@@ -47,16 +47,16 @@ user action (Explore) ─▶ registry.requestBundle(bundleId)      (lazy, concur
 
 ## State domains (all keyed by stable IDs, never scene objects)
 
-| Store | Package | Contents |
-| --- | --- | --- |
-| `useDataStore` | web | master index, AnatomyIndex, education map, lessons, quiz pool, search |
-| `useRegistryStore` | viewer | per-bundle `notRequested→queued→loadingManifest→loadingGeometry→ready/error/disposed` snapshots |
-| `useSelectionStore` | viewer | selected/hovered `structure_id` + selection source |
-| `useVisibilityStore` | viewer | hidden systems/structures, isolation set, fade, x-ray + undo/redo snapshots |
-| `useCameraStore` | viewer | tokenized camera requests (focus / canonical view / fit / reset) |
-| `useAppStore` / `useUiStore` | web | mode (hash-synced), settings, panel/dialog state, label set |
-| `useQuizStore` | web | wraps the pure quiz engine from core; grading by `structure_id` |
-| `useStudyStore` | web | bookmarks/recents/quiz history via `StudyRepository` (localStorage behind an interface) |
+| Store                        | Package | Contents                                                                                        |
+| ---------------------------- | ------- | ----------------------------------------------------------------------------------------------- |
+| `useDataStore`               | web     | master index, AnatomyIndex, education map, lessons, quiz pool, search                           |
+| `useRegistryStore`           | viewer  | per-bundle `notRequested→queued→loadingManifest→loadingGeometry→ready/error/disposed` snapshots |
+| `useSelectionStore`          | viewer  | selected/hovered `structure_id` + selection source                                              |
+| `useVisibilityStore`         | viewer  | hidden systems/structures, isolation set, fade, x-ray + undo/redo snapshots                     |
+| `useCameraStore`             | viewer  | tokenized camera requests (focus / canonical view / fit / reset)                                |
+| `useAppStore` / `useUiStore` | web     | mode (hash-synced), settings, panel/dialog state, label set                                     |
+| `useQuizStore`               | web     | wraps the pure quiz engine from core; grading by `structure_id`                                 |
+| `useStudyStore`              | web     | bookmarks/recents/quiz history via `StudyRepository` (localStorage behind an interface)         |
 
 `sceneCache` (viewer) is deliberately **not** a React store: it maps
 `bundleId → { group, meshesByGeometryId, geometryIdsByStructureId }` and notifies

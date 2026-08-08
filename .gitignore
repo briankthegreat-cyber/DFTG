@@ -6,6 +6,7 @@ playwright-report/
 blob-report/
 .env
 .env.local
+.claude/settings.local.json
 *.local
 .DS_Store
 *.tsbuildinfo
