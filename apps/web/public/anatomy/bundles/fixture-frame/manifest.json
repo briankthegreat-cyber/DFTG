@@ -1,0 +1,502 @@
+{
+  "schema_version": "1.1.0",
+  "bundle_id": "fixture-frame",
+  "display_name": "Fixture Frame (dev)",
+  "system": "fixture_frame",
+  "stage": "development_fixture",
+  "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+  "asset_path": "model.glb",
+  "development_fixture": true,
+  "bindings": [
+    {
+      "geometry_id": "FIX-G-TRUNK",
+      "structure_id": "FIX-S-TRUNK",
+      "canonical_name": "Fixture Trunk Column",
+      "synonyms": [
+        "torso block",
+        "central column"
+      ],
+      "system": "fixture_frame",
+      "subsystem": null,
+      "region": "fixture_axial",
+      "parent_id": "FIX-S-FRAME-ROOT",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "canonical_owner": "development_fixture",
+      "asset_path": "model.glb",
+      "gltf_node": {
+        "index": 1,
+        "name": "FIX-G-TRUNK",
+        "mesh_index": 0
+      },
+      "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+      "selectable": true,
+      "educational_priority": "core",
+      "hierarchy_path": [
+        "Fixture Frame Assembly"
+      ],
+      "source": {
+        "kind": "development_fixture",
+        "generator": "@anatomy/asset-tools"
+      },
+      "license": {
+        "status": "development_fixture",
+        "allowed_policies": [
+          "internal_development",
+          "external_preview",
+          "commercial_release"
+        ],
+        "notes": "Synthetic fixture geometry"
+      },
+      "version": "1.0.0-fixture",
+      "mapping_status": "exact",
+      "qa_status": {
+        "container": "pass",
+        "anatomical_review": "not_applicable_development_fixture"
+      },
+      "world_bounds_m": {
+        "min": [
+          -0.18,
+          0.8749999999999999,
+          -0.11
+        ],
+        "max": [
+          0.18,
+          1.4249999999999998,
+          0.11
+        ]
+      },
+      "asset_sha256": "446073e1bb52edbe3bcf62fa79480024f1a00a8e2d2988e100ce2a75169f9e65"
+    },
+    {
+      "geometry_id": "FIX-G-HEAD",
+      "structure_id": "FIX-S-HEAD",
+      "canonical_name": "Fixture Head Block",
+      "synonyms": [
+        "cephalic block"
+      ],
+      "system": "fixture_frame",
+      "subsystem": null,
+      "region": "fixture_cephalic",
+      "parent_id": "FIX-S-TRUNK",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "canonical_owner": "development_fixture",
+      "asset_path": "model.glb",
+      "gltf_node": {
+        "index": 2,
+        "name": "FIX-G-HEAD",
+        "mesh_index": 1
+      },
+      "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+      "selectable": true,
+      "educational_priority": "core",
+      "hierarchy_path": [
+        "Fixture Frame Assembly",
+        "Fixture Trunk Column"
+      ],
+      "source": {
+        "kind": "development_fixture",
+        "generator": "@anatomy/asset-tools"
+      },
+      "license": {
+        "status": "development_fixture",
+        "allowed_policies": [
+          "internal_development",
+          "external_preview",
+          "commercial_release"
+        ],
+        "notes": "Synthetic fixture geometry"
+      },
+      "version": "1.0.0-fixture",
+      "mapping_status": "exact",
+      "qa_status": {
+        "container": "pass",
+        "anatomical_review": "not_applicable_development_fixture"
+      },
+      "world_bounds_m": {
+        "min": [
+          -0.11,
+          1.5,
+          -0.11
+        ],
+        "max": [
+          0.11,
+          1.7400000000000002,
+          0.11
+        ]
+      },
+      "asset_sha256": "446073e1bb52edbe3bcf62fa79480024f1a00a8e2d2988e100ce2a75169f9e65"
+    },
+    {
+      "geometry_id": "FIX-G-ARM-L-UPPER",
+      "structure_id": "FIX-S-ARM-L",
+      "canonical_name": "Fixture Arm Assembly (left)",
+      "display_name": "Fixture Arm Assembly (left) — upper segment",
+      "synonyms": [
+        "left limb assembly"
+      ],
+      "system": "fixture_frame",
+      "subsystem": null,
+      "region": "fixture_appendage",
+      "parent_id": "FIX-S-TRUNK",
+      "laterality": "left",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "canonical_owner": "development_fixture",
+      "asset_path": "model.glb",
+      "gltf_node": {
+        "index": 3,
+        "name": "FIX-G-ARM-L-UPPER",
+        "mesh_index": 2
+      },
+      "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+      "selectable": true,
+      "educational_priority": "core",
+      "hierarchy_path": [
+        "Fixture Frame Assembly",
+        "Fixture Trunk Column"
+      ],
+      "source": {
+        "kind": "development_fixture",
+        "generator": "@anatomy/asset-tools"
+      },
+      "license": {
+        "status": "development_fixture",
+        "allowed_policies": [
+          "internal_development",
+          "external_preview",
+          "commercial_release"
+        ],
+        "notes": "Synthetic fixture geometry"
+      },
+      "version": "1.0.0-fixture",
+      "mapping_status": "exact",
+      "qa_status": {
+        "container": "pass",
+        "anatomical_review": "not_applicable_development_fixture"
+      },
+      "world_bounds_m": {
+        "min": [
+          0.25,
+          1.1300000000000001,
+          -0.06
+        ],
+        "max": [
+          0.35,
+          1.43,
+          0.06
+        ]
+      },
+      "asset_sha256": "446073e1bb52edbe3bcf62fa79480024f1a00a8e2d2988e100ce2a75169f9e65"
+    },
+    {
+      "geometry_id": "FIX-G-ARM-L-LOWER",
+      "structure_id": "FIX-S-ARM-L",
+      "canonical_name": "Fixture Arm Assembly (left)",
+      "display_name": "Fixture Arm Assembly (left) — lower segment",
+      "synonyms": [
+        "left limb assembly"
+      ],
+      "system": "fixture_frame",
+      "subsystem": null,
+      "region": "fixture_appendage",
+      "parent_id": "FIX-S-TRUNK",
+      "laterality": "left",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "canonical_owner": "development_fixture",
+      "asset_path": "model.glb",
+      "gltf_node": {
+        "index": 4,
+        "name": "FIX-G-ARM-L-LOWER",
+        "mesh_index": 3
+      },
+      "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+      "selectable": true,
+      "educational_priority": "core",
+      "hierarchy_path": [
+        "Fixture Frame Assembly",
+        "Fixture Trunk Column"
+      ],
+      "source": {
+        "kind": "development_fixture",
+        "generator": "@anatomy/asset-tools"
+      },
+      "license": {
+        "status": "development_fixture",
+        "allowed_policies": [
+          "internal_development",
+          "external_preview",
+          "commercial_release"
+        ],
+        "notes": "Synthetic fixture geometry"
+      },
+      "version": "1.0.0-fixture",
+      "mapping_status": "exact",
+      "qa_status": {
+        "container": "pass",
+        "anatomical_review": "not_applicable_development_fixture"
+      },
+      "world_bounds_m": {
+        "min": [
+          0.255,
+          0.7999999999999999,
+          -0.05
+        ],
+        "max": [
+          0.345,
+          1.08,
+          0.05
+        ]
+      },
+      "asset_sha256": "446073e1bb52edbe3bcf62fa79480024f1a00a8e2d2988e100ce2a75169f9e65"
+    },
+    {
+      "geometry_id": "FIX-G-ARM-R",
+      "structure_id": "FIX-S-ARM-R",
+      "canonical_name": "Fixture Arm Assembly (right)",
+      "synonyms": [
+        "right limb assembly"
+      ],
+      "system": "fixture_frame",
+      "subsystem": null,
+      "region": "fixture_appendage",
+      "parent_id": "FIX-S-TRUNK",
+      "laterality": "right",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "canonical_owner": "development_fixture",
+      "asset_path": "model.glb",
+      "gltf_node": {
+        "index": 5,
+        "name": "FIX-G-ARM-R",
+        "mesh_index": 4
+      },
+      "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+      "selectable": true,
+      "educational_priority": "core",
+      "hierarchy_path": [
+        "Fixture Frame Assembly",
+        "Fixture Trunk Column"
+      ],
+      "source": {
+        "kind": "development_fixture",
+        "generator": "@anatomy/asset-tools"
+      },
+      "license": {
+        "status": "development_fixture",
+        "allowed_policies": [
+          "internal_development",
+          "external_preview",
+          "commercial_release"
+        ],
+        "notes": "Synthetic fixture geometry"
+      },
+      "version": "1.0.0-fixture",
+      "mapping_status": "exact",
+      "qa_status": {
+        "container": "pass",
+        "anatomical_review": "not_applicable_development_fixture"
+      },
+      "world_bounds_m": {
+        "min": [
+          -0.35,
+          0.8,
+          -0.055
+        ],
+        "max": [
+          -0.25,
+          1.4200000000000002,
+          0.055
+        ]
+      },
+      "asset_sha256": "446073e1bb52edbe3bcf62fa79480024f1a00a8e2d2988e100ce2a75169f9e65"
+    },
+    {
+      "geometry_id": "FIX-G-LEG-L",
+      "structure_id": "FIX-S-LEG-L",
+      "canonical_name": "Fixture Leg Pillar (left)",
+      "synonyms": [
+        "left pillar"
+      ],
+      "system": "fixture_frame",
+      "subsystem": null,
+      "region": "fixture_base",
+      "parent_id": "FIX-S-FRAME-ROOT",
+      "laterality": "left",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "canonical_owner": "development_fixture",
+      "asset_path": "model.glb",
+      "gltf_node": {
+        "index": 6,
+        "name": "FIX-G-LEG-L",
+        "mesh_index": 5
+      },
+      "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+      "selectable": true,
+      "educational_priority": "reference",
+      "hierarchy_path": [
+        "Fixture Frame Assembly"
+      ],
+      "source": {
+        "kind": "development_fixture",
+        "generator": "@anatomy/asset-tools"
+      },
+      "license": {
+        "status": "development_fixture",
+        "allowed_policies": [
+          "internal_development",
+          "external_preview",
+          "commercial_release"
+        ],
+        "notes": "Synthetic fixture geometry"
+      },
+      "version": "1.0.0-fixture",
+      "mapping_status": "exact",
+      "qa_status": {
+        "container": "pass",
+        "anatomical_review": "not_applicable_development_fixture"
+      },
+      "world_bounds_m": {
+        "min": [
+          0.045,
+          0.010000000000000009,
+          -0.075
+        ],
+        "max": [
+          0.175,
+          0.87,
+          0.075
+        ]
+      },
+      "asset_sha256": "446073e1bb52edbe3bcf62fa79480024f1a00a8e2d2988e100ce2a75169f9e65"
+    },
+    {
+      "geometry_id": "FIX-G-LEG-R",
+      "structure_id": "FIX-S-LEG-R",
+      "canonical_name": "Fixture Leg Pillar (right)",
+      "synonyms": [
+        "right pillar"
+      ],
+      "system": "fixture_frame",
+      "subsystem": null,
+      "region": "fixture_base",
+      "parent_id": "FIX-S-FRAME-ROOT",
+      "laterality": "right",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "canonical_owner": "development_fixture",
+      "asset_path": "model.glb",
+      "gltf_node": {
+        "index": 7,
+        "name": "FIX-G-LEG-R",
+        "mesh_index": 6
+      },
+      "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+      "selectable": true,
+      "educational_priority": "reference",
+      "hierarchy_path": [
+        "Fixture Frame Assembly"
+      ],
+      "source": {
+        "kind": "development_fixture",
+        "generator": "@anatomy/asset-tools"
+      },
+      "license": {
+        "status": "development_fixture",
+        "allowed_policies": [
+          "internal_development",
+          "external_preview",
+          "commercial_release"
+        ],
+        "notes": "Synthetic fixture geometry"
+      },
+      "version": "1.0.0-fixture",
+      "mapping_status": "exact",
+      "qa_status": {
+        "container": "pass",
+        "anatomical_review": "not_applicable_development_fixture"
+      },
+      "world_bounds_m": {
+        "min": [
+          -0.175,
+          0.010000000000000009,
+          -0.075
+        ],
+        "max": [
+          -0.045,
+          0.87,
+          0.075
+        ]
+      },
+      "asset_sha256": "446073e1bb52edbe3bcf62fa79480024f1a00a8e2d2988e100ce2a75169f9e65"
+    },
+    {
+      "geometry_id": "FIX-G-PLATE",
+      "structure_id": "FIX-S-PLATE",
+      "canonical_name": "Fixture Base Plate",
+      "synonyms": [
+        "support plate",
+        "ground plate"
+      ],
+      "system": "fixture_frame",
+      "subsystem": null,
+      "region": "fixture_base",
+      "parent_id": "FIX-S-FRAME-ROOT",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "canonical_owner": "development_fixture",
+      "asset_path": "model.glb",
+      "gltf_node": {
+        "index": 8,
+        "name": "FIX-G-PLATE",
+        "mesh_index": 7
+      },
+      "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+      "selectable": true,
+      "educational_priority": "exam_relevant",
+      "hierarchy_path": [
+        "Fixture Frame Assembly"
+      ],
+      "source": {
+        "kind": "development_fixture",
+        "generator": "@anatomy/asset-tools"
+      },
+      "license": {
+        "status": "development_fixture",
+        "allowed_policies": [
+          "internal_development",
+          "external_preview",
+          "commercial_release"
+        ],
+        "notes": "Synthetic fixture geometry"
+      },
+      "version": "1.0.0-fixture",
+      "mapping_status": "exact",
+      "qa_status": {
+        "container": "pass",
+        "anatomical_review": "not_applicable_development_fixture"
+      },
+      "world_bounds_m": {
+        "min": [
+          -0.35,
+          0,
+          -0.22
+        ],
+        "max": [
+          0.35,
+          0.032,
+          0.22
+        ]
+      },
+      "asset_sha256": "446073e1bb52edbe3bcf62fa79480024f1a00a8e2d2988e100ce2a75169f9e65"
+    }
+  ],
+  "asset_sha256": "446073e1bb52edbe3bcf62fa79480024f1a00a8e2d2988e100ce2a75169f9e65",
+  "asset_byte_length": 13260
+}

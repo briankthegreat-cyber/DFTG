@@ -1,0 +1,22 @@
+{
+  "name": "@anatomy/asset-tools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "generate-fixture": "tsx src/cli/generate-fixture.ts",
+    "validate": "tsx src/cli/validate.ts"
+  },
+  "dependencies": {
+    "@anatomy/core": "workspace:*",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.2"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.1.0",
+  "questions": [
+    {
+      "id": "FIX-Q-1",
+      "type": "identify_on_model",
+      "prompt": "Select the Fixture Trunk Column on the model.",
+      "target_structure_ids": [
+        "FIX-S-TRUNK"
+      ],
+      "system": "fixture_frame",
+      "difficulty": "introductory",
+      "explanation": "The trunk column is the large central block on the midline.",
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ]
+    },
+    {
+      "id": "FIX-Q-2",
+      "type": "identify_on_model",
+      "prompt": "Select the Fixture Head Block on the model.",
+      "target_structure_ids": [
+        "FIX-S-HEAD"
+      ],
+      "system": "fixture_frame",
+      "difficulty": "introductory",
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ]
+    },
+    {
+      "id": "FIX-Q-3",
+      "type": "identify_on_model",
+      "prompt": "Select the Fixture Arm Assembly on the patient-left side (+X).",
+      "target_structure_ids": [
+        "FIX-S-ARM-L"
+      ],
+      "system": "fixture_frame",
+      "difficulty": "intermediate",
+      "explanation": "Both arm segments belong to one structure; clicking either counts.",
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ]
+    },
+    {
+      "id": "FIX-Q-4",
+      "type": "identify_on_model",
+      "prompt": "Select the Fixture Base Plate at the support plane.",
+      "target_structure_ids": [
+        "FIX-S-PLATE"
+      ],
+      "system": "fixture_frame",
+      "difficulty": "introductory",
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ]
+    },
+    {
+      "id": "FIX-Q-5",
+      "type": "multiple_choice",
+      "prompt": "Which structure is the arm assembly on the patient-left side?",
+      "target_structure_ids": [
+        "FIX-S-ARM-L"
+      ],
+      "distractor_structure_ids": [
+        "FIX-S-ARM-R",
+        "FIX-S-LEG-L",
+        "FIX-S-TRUNK"
+      ],
+      "system": "fixture_frame",
+      "difficulty": "intermediate",
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ]
+    },
+    {
+      "id": "FIX-Q-6",
+      "type": "multiple_choice",
+      "prompt": "Which structure is Fixture Core Node A?",
+      "target_structure_ids": [
+        "FIX-S-CORE-A"
+      ],
+      "distractor_structure_ids": [
+        "FIX-S-CORE-B",
+        "FIX-S-TRUNK",
+        "FIX-S-HEAD"
+      ],
+      "system": "fixture_core",
+      "difficulty": "introductory",
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ]
+    }
+  ]
+}

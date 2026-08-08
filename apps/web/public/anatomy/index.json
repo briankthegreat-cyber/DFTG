@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.1.0",
+  "generated_at": "2026-08-08T00:00:00Z",
+  "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+  "release_stage": "development_fixture",
+  "ontology_path": "ontology/structures.json",
+  "education_path": "education/records.json",
+  "lessons_path": "education/lessons.json",
+  "quiz_path": "education/quiz-questions.json",
+  "bundles": [
+    {
+      "bundle_id": "fixture-frame",
+      "system": "fixture_frame",
+      "display_name": "Fixture Frame (dev)",
+      "manifest_path": "bundles/fixture-frame/manifest.json",
+      "development_fixture": true,
+      "approx_byte_length": 13260,
+      "initial": true
+    },
+    {
+      "bundle_id": "fixture-core",
+      "system": "fixture_core",
+      "display_name": "Fixture Core (dev)",
+      "manifest_path": "bundles/fixture-core/manifest.json",
+      "development_fixture": true,
+      "approx_byte_length": 4620,
+      "initial": false
+    }
+  ]
+}

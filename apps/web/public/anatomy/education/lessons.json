@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.1.0",
+  "lessons": [
+    {
+      "lesson_id": "LESSON-FIX-ORIENT",
+      "title": "Fixture Orientation Tour",
+      "description": "Synthetic orientation tour over development-fixture geometry. It verifies canonical axes and selection flows and does not represent human anatomy.",
+      "system": "fixture_frame",
+      "steps": [
+        {
+          "step_id": "STEP-1",
+          "structure_id": "FIX-S-TRUNK",
+          "title": "The central column",
+          "instruction": "Start at the Fixture Trunk Column on the midline (X = 0)."
+        },
+        {
+          "step_id": "STEP-2",
+          "structure_id": "FIX-S-HEAD",
+          "title": "Superior block",
+          "instruction": "Move superiorly (+Y) to the Fixture Head Block."
+        },
+        {
+          "step_id": "STEP-3",
+          "structure_id": "FIX-S-ARM-L",
+          "title": "Patient-left assembly",
+          "instruction": "Patient-left is +X in canonical space; this assembly is two geometry segments that select as one structure."
+        },
+        {
+          "step_id": "STEP-4",
+          "structure_id": "FIX-S-PLATE",
+          "title": "Support plane",
+          "instruction": "The base plate sits at Y = 0, the canonical support plane."
+        }
+      ],
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ],
+      "development_fixture": true
+    }
+  ]
+}

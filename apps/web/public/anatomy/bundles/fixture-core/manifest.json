@@ -1,0 +1,192 @@
+{
+  "schema_version": "1.1.0",
+  "bundle_id": "fixture-core",
+  "display_name": "Fixture Core (dev)",
+  "system": "fixture_core",
+  "stage": "development_fixture",
+  "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+  "asset_path": "model.glb",
+  "development_fixture": true,
+  "bindings": [
+    {
+      "geometry_id": "FIX-G-CORE-A",
+      "structure_id": "FIX-S-CORE-A",
+      "canonical_name": "Fixture Core Node A",
+      "synonyms": [
+        "inner node alpha"
+      ],
+      "system": "fixture_core",
+      "subsystem": null,
+      "region": "fixture_internal",
+      "parent_id": "FIX-S-CORE-ROOT",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "canonical_owner": "development_fixture",
+      "asset_path": "model.glb",
+      "gltf_node": {
+        "index": 1,
+        "name": "FIX-G-CORE-A",
+        "mesh_index": 0
+      },
+      "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+      "selectable": true,
+      "educational_priority": "core",
+      "hierarchy_path": [
+        "Fixture Core Assembly"
+      ],
+      "source": {
+        "kind": "development_fixture",
+        "generator": "@anatomy/asset-tools"
+      },
+      "license": {
+        "status": "development_fixture",
+        "allowed_policies": [
+          "internal_development",
+          "external_preview",
+          "commercial_release"
+        ],
+        "notes": "Synthetic fixture geometry"
+      },
+      "version": "1.0.0-fixture",
+      "mapping_status": "exact",
+      "qa_status": {
+        "container": "pass",
+        "anatomical_review": "not_applicable_development_fixture"
+      },
+      "world_bounds_m": {
+        "min": [
+          -0.05,
+          1.16,
+          0
+        ],
+        "max": [
+          0.05,
+          1.28,
+          0.08
+        ]
+      },
+      "asset_sha256": "3957e960f60fb15e16943cde6720482cb6fa1f3e6c2a1a354e666caf18813194"
+    },
+    {
+      "geometry_id": "FIX-G-CORE-B",
+      "structure_id": "FIX-S-CORE-B",
+      "canonical_name": "Fixture Core Node B",
+      "synonyms": [
+        "inner node beta"
+      ],
+      "system": "fixture_core",
+      "subsystem": null,
+      "region": "fixture_internal",
+      "parent_id": "FIX-S-CORE-ROOT",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "canonical_owner": "development_fixture",
+      "asset_path": "model.glb",
+      "gltf_node": {
+        "index": 2,
+        "name": "FIX-G-CORE-B",
+        "mesh_index": 1
+      },
+      "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+      "selectable": true,
+      "educational_priority": "exam_relevant",
+      "hierarchy_path": [
+        "Fixture Core Assembly"
+      ],
+      "source": {
+        "kind": "development_fixture",
+        "generator": "@anatomy/asset-tools"
+      },
+      "license": {
+        "status": "development_fixture",
+        "allowed_policies": [
+          "internal_development",
+          "external_preview",
+          "commercial_release"
+        ],
+        "notes": "Synthetic fixture geometry"
+      },
+      "version": "1.0.0-fixture",
+      "mapping_status": "exact",
+      "qa_status": {
+        "container": "pass",
+        "anatomical_review": "not_applicable_development_fixture"
+      },
+      "world_bounds_m": {
+        "min": [
+          -0.07,
+          0.97,
+          -0.024999999999999998
+        ],
+        "max": [
+          0.07,
+          1.07,
+          0.065
+        ]
+      },
+      "asset_sha256": "3957e960f60fb15e16943cde6720482cb6fa1f3e6c2a1a354e666caf18813194"
+    },
+    {
+      "geometry_id": "FIX-G-RESTRICTED",
+      "structure_id": "FIX-S-RESTRICTED",
+      "canonical_name": "Fixture Restricted Block",
+      "synonyms": [
+        "license test block"
+      ],
+      "system": "fixture_core",
+      "subsystem": null,
+      "region": "fixture_internal",
+      "parent_id": "FIX-S-CORE-ROOT",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "canonical_owner": "development_fixture",
+      "asset_path": "model.glb",
+      "gltf_node": {
+        "index": 3,
+        "name": "FIX-G-RESTRICTED",
+        "mesh_index": 2
+      },
+      "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+      "selectable": true,
+      "educational_priority": "reference",
+      "hierarchy_path": [
+        "Fixture Core Assembly"
+      ],
+      "source": {
+        "kind": "development_fixture",
+        "generator": "@anatomy/asset-tools"
+      },
+      "license": {
+        "status": "blocked_distribution",
+        "allowed_policies": [
+          "internal_development"
+        ],
+        "notes": "Deliberately blocked fixture node for license-gate testing"
+      },
+      "version": "1.0.0-fixture",
+      "mapping_status": "exact",
+      "qa_status": {
+        "container": "pass",
+        "anatomical_review": "not_applicable_development_fixture"
+      },
+      "world_bounds_m": {
+        "min": [
+          -0.04,
+          1.08,
+          -0.08
+        ],
+        "max": [
+          0.04,
+          1.1600000000000001,
+          -0.020000000000000004
+        ]
+      },
+      "asset_sha256": "3957e960f60fb15e16943cde6720482cb6fa1f3e6c2a1a354e666caf18813194"
+    }
+  ],
+  "asset_sha256": "3957e960f60fb15e16943cde6720482cb6fa1f3e6c2a1a354e666caf18813194",
+  "asset_byte_length": 4620
+}
