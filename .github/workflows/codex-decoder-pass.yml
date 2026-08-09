@@ -26,14 +26,10 @@ jobs:
 
           path = Path('apps/web/e2e/quiz.spec.ts')
           source = path.read_text()
-          old = '''    if (isIdentify) {
-              const box = await canvas.boundingBox();
-              if (!box) throw new Error('canvas not measurable');
-              // Click the model (trunk area). Correctness is graded by structure_id;
-              // both correct and incorrect answers must produce feedback.
-              await canvas.click({ position: { x: box.width / 2, y: box.height * 0.42 } });
-            } else {'''.replace('      ', '')
-          new = '''    if (isIdentify) {
+          start = source.index('    if (isIdentify) {')
+          end_marker = '    } else {'
+          end = source.index(end_marker, start) + len(end_marker)
+          replacement = '''    if (isIdentify) {
               const box = await canvas.boundingBox();
               if (!box) throw new Error('canvas not measurable');
               const feedback = page.getByTestId('quiz-feedback');
@@ -47,9 +43,7 @@ jobs:
                 }
               }
             } else {'''.replace('      ', '')
-          if old not in source:
-              raise SystemExit('expected quiz identify block not found')
-          path.write_text(source.replace(old, new))
+          path.write_text(source[:start] + replacement + source[end:])
           PY
           grep -F 'probeLoop: for' apps/web/e2e/quiz.spec.ts
 
