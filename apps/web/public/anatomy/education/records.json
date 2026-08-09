@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.1.0",
+  "records": [
+    {
+      "structure_id": "FIX-S-TRUNK",
+      "title": "Fixture Trunk Column",
+      "short_description": "Central synthetic block of the development fixture frame.",
+      "overview": "Synthetic development-fixture geometry used to verify selection, visibility, and camera behavior. It does not represent human anatomy.",
+      "function": [
+        "Acts as the central reference block for selection and camera-framing checks."
+      ],
+      "quiz_facts": [
+        "The trunk column is centered on the midline at X = 0."
+      ],
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ],
+      "reviewed_status": "draft",
+      "content_version": "1.0.0-fixture",
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-HEAD",
+      "title": "Fixture Head Block",
+      "short_description": "Topmost synthetic block of the development fixture frame.",
+      "overview": "Synthetic development-fixture geometry used to verify selection, visibility, and camera behavior. It does not represent human anatomy.",
+      "anatomical_relations": [
+        "Positioned superior (+Y) to the Fixture Trunk Column."
+      ],
+      "quiz_facts": [
+        "The head block is the most superior block in the fixture frame."
+      ],
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ],
+      "reviewed_status": "draft",
+      "content_version": "1.0.0-fixture",
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-ARM-L",
+      "title": "Fixture Arm Assembly (left)",
+      "short_description": "Synthetic two-segment assembly on the patient-left (+X) side.",
+      "overview": "Synthetic development-fixture geometry used to verify selection, visibility, and camera behavior. It is made of two geometry segments that select as one structure, and it does not represent human anatomy.",
+      "quiz_facts": [
+        "Clicking either the upper or lower segment selects the whole left arm assembly."
+      ],
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ],
+      "reviewed_status": "draft",
+      "content_version": "1.0.0-fixture",
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-PLATE",
+      "title": "Fixture Base Plate",
+      "short_description": "Synthetic support plate at the canonical support plane.",
+      "overview": "Synthetic development-fixture geometry used to verify selection, visibility, and camera behavior. It does not represent human anatomy.",
+      "anatomical_relations": [
+        "Sits at Y = 0, the canonical support plane, inferior to both leg pillars."
+      ],
+      "quiz_facts": [
+        "The base plate marks Y = 0 in the canonical coordinate system."
+      ],
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ],
+      "reviewed_status": "draft",
+      "content_version": "1.0.0-fixture",
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-CORE-A",
+      "title": "Fixture Core Node A",
+      "short_description": "Synthetic inner block from the fixture-core bundle.",
+      "overview": "Synthetic development-fixture geometry used to verify multi-bundle loading and selection. It does not represent human anatomy.",
+      "quiz_facts": [
+        "Core Node A loads from the fixture-core bundle, not the initial frame bundle."
+      ],
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ],
+      "reviewed_status": "draft",
+      "content_version": "1.0.0-fixture",
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-GHOST",
+      "title": "Fixture Ghost Node",
+      "short_description": "Synthetic ontology-only entry; its geometry is not yet available.",
+      "overview": "Synthetic development-fixture entry used to verify that missing geometry is reported honestly in the interface. It does not represent human anatomy.",
+      "citations": [
+        {
+          "label": "Development fixture — synthetic, non-medical content",
+          "kind": "development_fixture"
+        }
+      ],
+      "reviewed_status": "draft",
+      "content_version": "1.0.0-fixture",
+      "development_fixture": true
+    }
+  ]
+}

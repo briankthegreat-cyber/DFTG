@@ -1,0 +1,15 @@
+node_modules/
+dist/
+coverage/
+test-results/
+playwright-report/
+blob-report/
+.env
+.env.local
+.claude/settings.local.json
+*.local
+.DS_Store
+*.tsbuildinfo
+# Real production anatomy assets are never committed to this repo.
+# The tiny generated development fixture under apps/web/public/anatomy IS committed.
+anatomy-assets-local/

@@ -1,0 +1,263 @@
+{
+  "schema_version": "1.1.0",
+  "structures": [
+    {
+      "structure_id": "FIX-S-FRAME-ROOT",
+      "canonical_name": "Fixture Frame Assembly",
+      "synonyms": [],
+      "system": "fixture_frame",
+      "region": null,
+      "parent_id": null,
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "reference",
+      "selectable": false,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-CORE-ROOT",
+      "canonical_name": "Fixture Core Assembly",
+      "synonyms": [],
+      "system": "fixture_core",
+      "region": null,
+      "parent_id": null,
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "reference",
+      "selectable": false,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-TRUNK",
+      "canonical_name": "Fixture Trunk Column",
+      "synonyms": [
+        "torso block",
+        "central column"
+      ],
+      "system": "fixture_frame",
+      "region": "fixture_axial",
+      "parent_id": "FIX-S-FRAME-ROOT",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "core",
+      "selectable": true,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-HEAD",
+      "canonical_name": "Fixture Head Block",
+      "synonyms": [
+        "cephalic block"
+      ],
+      "system": "fixture_frame",
+      "region": "fixture_cephalic",
+      "parent_id": "FIX-S-TRUNK",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "core",
+      "selectable": true,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-ARM-L",
+      "canonical_name": "Fixture Arm Assembly (left)",
+      "synonyms": [
+        "left limb assembly"
+      ],
+      "system": "fixture_frame",
+      "region": "fixture_appendage",
+      "parent_id": "FIX-S-TRUNK",
+      "laterality": "left",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "core",
+      "selectable": true,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-ARM-R",
+      "canonical_name": "Fixture Arm Assembly (right)",
+      "synonyms": [
+        "right limb assembly"
+      ],
+      "system": "fixture_frame",
+      "region": "fixture_appendage",
+      "parent_id": "FIX-S-TRUNK",
+      "laterality": "right",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "core",
+      "selectable": true,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-LEG-L",
+      "canonical_name": "Fixture Leg Pillar (left)",
+      "synonyms": [
+        "left pillar"
+      ],
+      "system": "fixture_frame",
+      "region": "fixture_base",
+      "parent_id": "FIX-S-FRAME-ROOT",
+      "laterality": "left",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "reference",
+      "selectable": true,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-LEG-R",
+      "canonical_name": "Fixture Leg Pillar (right)",
+      "synonyms": [
+        "right pillar"
+      ],
+      "system": "fixture_frame",
+      "region": "fixture_base",
+      "parent_id": "FIX-S-FRAME-ROOT",
+      "laterality": "right",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "reference",
+      "selectable": true,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-PLATE",
+      "canonical_name": "Fixture Base Plate",
+      "synonyms": [
+        "support plate",
+        "ground plate"
+      ],
+      "system": "fixture_frame",
+      "region": "fixture_base",
+      "parent_id": "FIX-S-FRAME-ROOT",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "exam_relevant",
+      "selectable": true,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-CORE-A",
+      "canonical_name": "Fixture Core Node A",
+      "synonyms": [
+        "inner node alpha"
+      ],
+      "system": "fixture_core",
+      "region": "fixture_internal",
+      "parent_id": "FIX-S-CORE-ROOT",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "core",
+      "selectable": true,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-CORE-B",
+      "canonical_name": "Fixture Core Node B",
+      "synonyms": [
+        "inner node beta"
+      ],
+      "system": "fixture_core",
+      "region": "fixture_internal",
+      "parent_id": "FIX-S-CORE-ROOT",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "exam_relevant",
+      "selectable": true,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-RESTRICTED",
+      "canonical_name": "Fixture Restricted Block",
+      "synonyms": [
+        "license test block"
+      ],
+      "system": "fixture_core",
+      "region": "fixture_internal",
+      "parent_id": "FIX-S-CORE-ROOT",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "reference",
+      "selectable": true,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    },
+    {
+      "structure_id": "FIX-S-GHOST",
+      "canonical_name": "Fixture Ghost Node",
+      "synonyms": [
+        "missing geometry example"
+      ],
+      "system": "fixture_core",
+      "region": "fixture_internal",
+      "parent_id": "FIX-S-CORE-ROOT",
+      "laterality": "midline",
+      "sex_specificity": "unknown",
+      "life_stage": "unknown",
+      "educational_priority": "reference",
+      "selectable": true,
+      "ta2_id": null,
+      "source": {
+        "kind": "development_fixture"
+      },
+      "development_fixture": true
+    }
+  ]
+}

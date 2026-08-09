@@ -1,0 +1,9 @@
+node_modules
+dist
+.claude
+.env.example
+coverage
+test-results
+playwright-report
+pnpm-lock.yaml
+apps/web/public/anatomy

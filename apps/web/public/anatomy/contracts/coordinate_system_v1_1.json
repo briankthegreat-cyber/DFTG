@@ -1,0 +1,21 @@
+{
+  "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
+  "handedness": "right",
+  "units": "meters",
+  "axes": {
+    "+X": "patient_left",
+    "-X": "patient_right",
+    "+Y": "superior",
+    "-Y": "inferior",
+    "+Z": "anterior",
+    "-Z": "posterior"
+  },
+  "origin": {
+    "y0": "support_plane",
+    "x0": "midsagittal_plane",
+    "z0": "midpoint_between_heel_centers"
+  },
+  "pose": "neutral_adult_anatomical_position",
+  "root_transform": "identity_baked_vertices",
+  "note": "Development copy of the coordinate contract values for fixture use. Replace with the authoritative production contract file when available."
+}
