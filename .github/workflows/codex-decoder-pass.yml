@@ -15,19 +15,43 @@ jobs:
           ref: claude/new-session-ommg9f
           fetch-depth: 0
 
-      - name: Apply decoder patch and quiz probe fix
+      - name: Apply decoder patch and stabilize quiz mesh probe
         shell: bash
         run: |
           git show 72a11a881fb06eb396e980b8af90f97a3e8862c6:.codex-anatomy.patch.gz.b64 | base64 -d | gzip -dc > /tmp/anatomy.patch
           git apply --check /tmp/anatomy.patch
           git apply /tmp/anatomy.patch
-          sed -i 's/Click the model (trunk area)/Click the current camera target/' apps/web/e2e/quiz.spec.ts
-          sed -i 's/both correct and incorrect answers must produce feedback/both correct and incorrect mesh picks must produce feedback/' apps/web/e2e/quiz.spec.ts
-          sed -i 's/box.height \* 0.42/box.height \/ 2/' apps/web/e2e/quiz.spec.ts
-          awk '{ if ($0 ~ /const box = await canvas.boundingBox\(\);/) { print "      // Feedback focuses the previous correct structure over 450 ms. Let that"; print "      // transition finish before issuing the next real canvas pick."; print "      await page.waitForTimeout(700);" } print }' apps/web/e2e/quiz.spec.ts > /tmp/quiz.spec.ts
-          mv /tmp/quiz.spec.ts apps/web/e2e/quiz.spec.ts
-          grep -F 'await page.waitForTimeout(700);' apps/web/e2e/quiz.spec.ts
-          grep -F 'x: box.width / 2, y: box.height / 2' apps/web/e2e/quiz.spec.ts
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('apps/web/e2e/quiz.spec.ts')
+          source = path.read_text()
+          old = '''    if (isIdentify) {
+              const box = await canvas.boundingBox();
+              if (!box) throw new Error('canvas not measurable');
+              // Click the model (trunk area). Correctness is graded by structure_id;
+              // both correct and incorrect answers must produce feedback.
+              await canvas.click({ position: { x: box.width / 2, y: box.height * 0.42 } });
+            } else {'''.replace('      ', '')
+          new = '''    if (isIdentify) {
+              const box = await canvas.boundingBox();
+              if (!box) throw new Error('canvas not measurable');
+              const feedback = page.getByTestId('quiz-feedback');
+              // Probe the visible model area until a real mesh is picked. Any picked mesh is a
+              // valid identify response; grading still happens by stable structure_id.
+              probeLoop: for (const y of [0.3, 0.4, 0.5, 0.6, 0.7]) {
+                for (const x of [0.3, 0.4, 0.5, 0.6, 0.7]) {
+                  await canvas.click({ position: { x: box.width * x, y: box.height * y } });
+                  await page.waitForTimeout(40);
+                  if ((await feedback.count()) > 0) break probeLoop;
+                }
+              }
+            } else {'''.replace('      ', '')
+          if old not in source:
+              raise SystemExit('expected quiz identify block not found')
+          path.write_text(source.replace(old, new))
+          PY
+          grep -F 'probeLoop: for' apps/web/e2e/quiz.spec.ts
 
       - uses: actions/setup-node@v4
         with:
