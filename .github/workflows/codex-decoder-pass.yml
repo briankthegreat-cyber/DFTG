@@ -24,6 +24,9 @@ jobs:
           sed -i 's/Click the model (trunk area)/Click the current camera target/' apps/web/e2e/quiz.spec.ts
           sed -i 's/both correct and incorrect answers must produce feedback/both correct and incorrect mesh picks must produce feedback/' apps/web/e2e/quiz.spec.ts
           sed -i 's/box.height \* 0.42/box.height \/ 2/' apps/web/e2e/quiz.spec.ts
+          awk '{ if ($0 ~ /const box = await canvas.boundingBox\(\);/) { print "      // Feedback focuses the previous correct structure over 450 ms. Let that"; print "      // transition finish before issuing the next real canvas pick."; print "      await page.waitForTimeout(700);" } print }' apps/web/e2e/quiz.spec.ts > /tmp/quiz.spec.ts
+          mv /tmp/quiz.spec.ts apps/web/e2e/quiz.spec.ts
+          grep -F 'await page.waitForTimeout(700);' apps/web/e2e/quiz.spec.ts
           grep -F 'x: box.width / 2, y: box.height / 2' apps/web/e2e/quiz.spec.ts
 
       - uses: actions/setup-node@v4
