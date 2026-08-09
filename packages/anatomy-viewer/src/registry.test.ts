@@ -205,6 +205,69 @@ describe('AnatomyAssetRegistry', () => {
     expect(registry.getSnapshot('test-bundle').state).toBe('disposed');
   });
 
+  it('rejects a GLB carrying mesh nodes the manifest does not bind', async () => {
+    // Manifest omits TEST-G-PLATE: its bytes would render outside the
+    // license/visibility gates, so the bundle must be rejected.
+    const partial = makeManifest({
+      bundle_id: 'test-bundle',
+      bindings: [
+        binding('TEST-G-A', 'TEST-S-A', 1),
+        binding('TEST-G-B1', 'TEST-S-B', 2),
+        binding('TEST-G-B2', 'TEST-S-B', 3),
+      ],
+    });
+    const { registry } = makeRegistry(partial);
+    await registry.requestBundle('test-bundle');
+
+    const snapshot = registry.getSnapshot('test-bundle');
+    expect(snapshot.state).toBe('error');
+    expect(snapshot.diagnostics.some((d) => d.code === 'unbound_mesh_node')).toBe(true);
+    expect(sceneCache.get('test-bundle')).toBeUndefined();
+  });
+
+  it('unloadBundle during an in-flight load wins: no resurrection, no duplicate scene', async () => {
+    let release: (() => void) | undefined;
+    const gate = new Promise<void>((resolve) => (release = resolve));
+    let glbFetches = 0;
+    const manifest = goodManifest();
+    const snapshots: BundleSnapshot[] = [];
+    const registry = new AnatomyAssetRegistry({
+      baseUrl: 'https://assets.test/anatomy',
+      policy: 'internal_development',
+      onSnapshot: (snapshot) => snapshots.push(snapshot),
+      fetchFn: (async (input: RequestInfo | URL) => {
+        const url = String(input);
+        if (url.endsWith('index.json')) return Response.json(INDEX);
+        if (url.endsWith('manifest.json')) return Response.json(manifest);
+        if (url.endsWith('model.glb')) {
+          glbFetches += 1;
+          if (glbFetches === 1) await gate; // hold the first load in flight
+          return new Response(new Uint8Array(GLB));
+        }
+        return new Response('not found', { status: 404 });
+      }) as typeof fetch,
+    });
+
+    const firstLoad = registry.requestBundle('test-bundle');
+    await new Promise((resolve) => setTimeout(resolve, 20)); // reach the gated fetch
+    registry.unloadBundle('test-bundle');
+
+    // Re-request while the superseded load is still in flight.
+    const secondLoad = registry.requestBundle('test-bundle');
+    release?.();
+    await Promise.all([firstLoad, secondLoad]);
+
+    expect(registry.getSnapshot('test-bundle').state).toBe('ready');
+    expect(sceneCache.get('test-bundle')).toBeDefined();
+    // The superseded load must never have published: exactly one 'ready'.
+    expect(snapshots.filter((s) => s.state === 'ready')).toHaveLength(1);
+
+    // And unload with NO re-request stays disposed even after the gate opens.
+    registry.unloadBundle('test-bundle');
+    expect(registry.getSnapshot('test-bundle').state).toBe('disposed');
+    expect(sceneCache.get('test-bundle')).toBeUndefined();
+  });
+
   it('provides structure bounds from manifest world bounds', async () => {
     const { registry } = makeRegistry(goodManifest());
     await registry.requestBundle('test-bundle');

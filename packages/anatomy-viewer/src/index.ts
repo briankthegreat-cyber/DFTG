@@ -13,7 +13,12 @@ export type { EffectState } from './materials';
 export { installBvh, computeMeshBvh, disposeMeshBvh } from './bvh';
 export { useSelectionStore } from './state/selection';
 export type { SelectionSource, SelectionState } from './state/selection';
-export { useVisibilityStore, isStructureVisible, EMPTY_VISIBILITY } from './state/visibility';
+export {
+  useVisibilityStore,
+  isStructureVisible,
+  snapshotVisibility,
+  EMPTY_VISIBILITY,
+} from './state/visibility';
 export type { VisibilitySnapshot, VisibilityState } from './state/visibility';
 export { useRegistryStore, bundleState } from './state/registry-store';
 export type { BundleLoadState, BundleSnapshot, RegistryDiagnostic } from './state/registry-store';

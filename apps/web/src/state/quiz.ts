@@ -9,7 +9,7 @@ import {
   type QuizSessionState,
   type SubmitResult,
 } from '@anatomy/core';
-import { useCameraStore } from '@anatomy/viewer';
+import { useCameraStore, useSelectionStore } from '@anatomy/viewer';
 import { availableStructureIds, ensureGeometryForStructure, labelFor } from '../controller';
 import { useDataStore } from './data';
 import { useStudyStore } from './study';
@@ -38,6 +38,10 @@ export const useQuizStore = create<QuizState>((set, get) => ({
   lastResult: null,
 
   start: (options = {}) => {
+    // The pre-quiz selection/hover highlight must never reveal an
+    // identify-on-model answer — clear both before the first question.
+    useSelectionStore.getState().clear();
+    useSelectionStore.getState().setHovered(null);
     const data = useDataStore.getState();
     let pool = data.quizQuestions;
     if (options.targetStructureId !== undefined) {

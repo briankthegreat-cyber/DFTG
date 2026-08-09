@@ -30,6 +30,8 @@ export interface AnatomyCanvasProps {
   onEmptyClick?: () => boolean | void;
   onHoverInfo?: (info: { structureId: string; clientX: number; clientY: number } | null) => void;
   extraHighlightStructureIds?: string[];
+  /** Quiz question phase: selection/hover highlights must not hint the answer. */
+  suppressSelectionHighlight?: boolean;
   labels?: LabelEntry[];
   labelAnchorFor?: (structureId: string) => [number, number, number] | null;
   onLabelClick?: (structureId: string) => void;
@@ -97,6 +99,7 @@ export function AnatomyCanvas({
   onEmptyClick,
   onHoverInfo,
   extraHighlightStructureIds,
+  suppressSelectionHighlight = false,
   labels = [],
   labelAnchorFor,
   onLabelClick,
@@ -136,6 +139,7 @@ export function AnatomyCanvas({
       <EffectsController
         resolveStructure={resolveStructure}
         extraHighlightStructureIds={extraHighlightStructureIds}
+        suppressSelectionHighlight={suppressSelectionHighlight}
       />
       <CameraRig registry={registry} reducedMotion={reducedMotion} />
       {labelAnchorFor ? (

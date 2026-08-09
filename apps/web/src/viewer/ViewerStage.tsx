@@ -101,6 +101,7 @@ export function ViewerStage({ quizMode = false }: { quizMode?: boolean }) {
           onEmptyClick={quizMode ? () => session?.phase === 'question' : undefined}
           onHoverInfo={setHoverInfo}
           extraHighlightStructureIds={extraHighlights}
+          suppressSelectionHighlight={quizMode && session?.phase === 'question'}
           labels={quizMode ? [] : labels}
           labelAnchorFor={labelAnchorFor}
           onLabelClick={(structureId) => selectStructure(structureId, 'label')}

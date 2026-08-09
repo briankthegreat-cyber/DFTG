@@ -40,10 +40,21 @@ export interface VisibilityState extends VisibilitySnapshot {
   isolate: (structureIds: string[]) => void;
   clearIsolation: () => void;
   setFade: (enabled: boolean, opacity?: number) => void;
+  /** Transient slider preview — no history entry (see commitSnapshot). */
+  previewFade: (opacity: number) => void;
+  /**
+   * Push a caller-captured pre-gesture snapshot as ONE history entry, so a
+   * continuous slider drag costs one undo step instead of one per tick.
+   */
+  commitSnapshot: (before: VisibilitySnapshot) => void;
   setXray: (on: boolean) => void;
   undo: () => void;
   redo: () => void;
   resetAll: () => void;
+}
+
+export function snapshotVisibility(state: VisibilitySnapshot): VisibilitySnapshot {
+  return snapshotOf(state);
 }
 
 function snapshotOf(state: VisibilitySnapshot): VisibilitySnapshot {
@@ -111,6 +122,16 @@ export const useVisibilityStore = create<VisibilityState>((set, get) => {
       const next: Partial<VisibilitySnapshot> = { fadeOthers: enabled };
       if (opacity !== undefined) next.fadeOpacity = opacity;
       commit(next);
+    },
+
+    previewFade: (opacity) => set({ fadeOthers: true, fadeOpacity: opacity }),
+
+    commitSnapshot: (before) => {
+      const current = get();
+      set({
+        past: [...current.past.slice(-HISTORY_LIMIT), snapshotOf(before)],
+        future: [],
+      });
     },
 
     setXray: (on) => commit({ xray: on }),

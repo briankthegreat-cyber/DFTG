@@ -1,7 +1,25 @@
 # Implementation status
 
-Honest checklist as of 2026-08-08. "Verified" means an automated test or executed
+Honest checklist as of 2026-08-09. "Verified" means an automated test or executed
 command covers it, not that it was eyeballed once.
+
+An adversarial multi-agent review pass (22 raw findings, 9 verified against the
+code) ran before handoff; all confirmed defects were fixed with regression tests:
+
+- Quiz start now clears selection/hover, and quiz question phase suppresses the
+  selection/hover highlight entirely — a pre-quiz selection can no longer visually
+  reveal an identify-on-model answer.
+- `unloadBundle` during an in-flight load can no longer be overridden by that load
+  (per-bundle generation counter; superseded loads dispose what they built and never
+  publish; regression test with a gated fetch).
+- GLB mesh nodes not covered by any manifest binding now fail the bundle in the
+  registry AND fail `validate:anatomy-assets` (`unbound_mesh_node`) — geometry can
+  never render outside the license/visibility gates.
+- Quiz feedback is announced to screen readers (`role="status"`) and keyboard focus
+  survives question→feedback→results transitions; the help dialog traps and
+  restores focus.
+- Fade slider drags cost one undo entry per gesture instead of flooding history;
+  stale hover glow can no longer persist into quiz mode.
 
 ## Completed and verified
 
@@ -38,9 +56,10 @@ command covers it, not that it was eyeballed once.
 - Commands (all green as of this commit):
   - `pnpm typecheck` — 5/5 packages pass
   - `pnpm lint` — clean
-  - `pnpm test` — 11 files, 76 tests pass (schemas, ontology, search, policy, quiz,
+  - `pnpm test` — 11 files, 79 tests pass (schemas, ontology, search, policy, quiz,
     storage, GLB round-trip, registry mapping incl. mismatch/license/unload,
-    visibility undo/redo, selection convergence, UI components)
+    unload-during-load race, unbound-node rejection, visibility undo/redo +
+    slider-gesture history, selection convergence, UI components)
   - `pnpm build` — passes (bundle ~1.34 MB minified / ~378 kB gzip; three.js dominates)
   - `pnpm validate:anatomy-assets` — 0 errors; `-- --policy external_preview` fails
     with exactly the deliberate `FIX-G-RESTRICTED` violation (exit 1)

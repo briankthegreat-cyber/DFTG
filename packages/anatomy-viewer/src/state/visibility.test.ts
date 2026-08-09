@@ -1,5 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { EMPTY_VISIBILITY, isStructureVisible, useVisibilityStore } from './visibility';
+import {
+  EMPTY_VISIBILITY,
+  isStructureVisible,
+  snapshotVisibility,
+  useVisibilityStore,
+} from './visibility';
 
 function reset() {
   useVisibilityStore.setState({
@@ -59,6 +64,24 @@ describe('visibility store', () => {
     expect(store().xray).toBe(false);
     store().undo();
     expect(store().xray).toBe(true);
+  });
+
+  it('a fade slider gesture costs one undo entry, not one per tick', () => {
+    const store = () => useVisibilityStore.getState();
+    store().setFade(true, 0.2); // 1 history entry
+
+    const before = snapshotVisibility(store());
+    store().previewFade(0.25);
+    store().previewFade(0.3);
+    store().previewFade(0.35); // transient: no history entries
+    store().commitSnapshot(before); // gesture end: exactly one entry
+
+    expect(store().fadeOpacity).toBe(0.35);
+    expect(store().past).toHaveLength(2);
+    store().undo();
+    expect(store().fadeOpacity).toBe(0.2);
+    store().redo();
+    expect(store().fadeOpacity).toBe(0.35);
   });
 
   it('effective visibility respects overrides, ancestors, isolation and systems', () => {

@@ -17,6 +17,8 @@ interface EffectsControllerProps {
   resolveStructure: StructureMetaResolver;
   /** Extra highlighted structures (e.g. quiz "show correct answer"). */
   extraHighlightStructureIds?: string[];
+  /** Quiz question phase: the selection highlight must not hint the answer. */
+  suppressSelectionHighlight?: boolean;
 }
 
 /**
@@ -27,6 +29,7 @@ interface EffectsControllerProps {
 export function EffectsController({
   resolveStructure,
   extraHighlightStructureIds,
+  suppressSelectionHighlight = false,
 }: EffectsControllerProps): null {
   const invalidate = useThree((state) => state.invalidate);
   const selectedStructureId = useSelectionStore((s) => s.selectedStructureId);
@@ -52,7 +55,8 @@ export function EffectsController({
         meta.ancestorIds,
       );
       const highlighted =
-        binding.structure_id === selectedStructureId || extra.includes(binding.structure_id);
+        (!suppressSelectionHighlight && binding.structure_id === selectedStructureId) ||
+        extra.includes(binding.structure_id);
       const inFocusSet =
         highlighted ||
         (visibility.isolatedStructureIds !== null &&
@@ -61,7 +65,10 @@ export function EffectsController({
       const state: EffectState = {
         hidden: !visible,
         highlighted,
-        hovered: binding.structure_id === hoveredStructureId && !highlighted,
+        hovered:
+          !suppressSelectionHighlight &&
+          binding.structure_id === hoveredStructureId &&
+          !highlighted,
         fade: visibility.fadeOthers && !inFocusSet ? visibility.fadeOpacity : null,
         xray: visibility.xray && !highlighted,
       };
@@ -75,6 +82,7 @@ export function EffectsController({
   }, [
     resolveStructure,
     extraHighlightStructureIds,
+    suppressSelectionHighlight,
     selectedStructureId,
     hoveredStructureId,
     visibility,

@@ -215,6 +215,19 @@ export async function validateAssets(opts: ValidateAssetsOptions): Promise<Valid
           });
         }
       }
+      // Reverse direction: every mesh-carrying glTF node must have a binding,
+      // otherwise its bytes would render outside the license/visibility gates.
+      const boundNodeIndices = new Set(manifest.bindings.map((b) => b.gltf_node.index));
+      json.nodes.forEach((node, nodeIndex) => {
+        if (node.mesh !== undefined && !boundNodeIndices.has(nodeIndex)) {
+          errors.push({
+            code: 'glb_unbound_mesh_node',
+            message: `glTF node ${nodeIndex} ("${node.name ?? '(unnamed)'}") in bundle "${entry.bundle_id}" carries mesh ${node.mesh} but has no manifest binding`,
+            bundle_id: entry.bundle_id,
+            path: assetRelPath,
+          });
+        }
+      });
     } catch (error) {
       errors.push({
         code: 'glb_parse_error',

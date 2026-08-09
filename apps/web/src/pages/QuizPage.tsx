@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Badge, Button, EmptyState, Panel } from '@anatomy/ui';
 import { summarize } from '@anatomy/core';
 import { useRegistryStore } from '@anatomy/viewer';
@@ -63,6 +63,15 @@ function QuizRunner() {
   const abort = useQuizStore((s) => s.abort);
   const publicQuestion = usePublicQuestion();
   const [listOpen, setListOpen] = useState(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+
+  // Answer buttons unmount on submit; move keyboard focus to the new card so
+  // it is never dropped to <body> across phase transitions.
+  const phase = session?.phase;
+  const questionIndex = session?.current_index;
+  useEffect(() => {
+    cardRef.current?.focus();
+  }, [phase, questionIndex]);
 
   const identifyCandidates = useMemo(() => {
     if (!publicQuestion || publicQuestion.type !== 'identify_on_model') return [];
@@ -77,7 +86,7 @@ function QuizRunner() {
     const summary = summarize(session);
     return (
       <Panel title="Results" aria-label="Quiz results">
-        <div data-testid="quiz-results">
+        <div data-testid="quiz-results" ref={cardRef} tabIndex={-1} role="status">
           {summary.total === 0 ? (
             <EmptyState
               title="No questions available"
@@ -114,7 +123,7 @@ function QuizRunner() {
   return (
     <div className="quiz-runner">
       {publicQuestion && session.phase === 'question' ? (
-        <div className="quiz-card" data-testid="quiz-prompt">
+        <div className="quiz-card" data-testid="quiz-prompt" ref={cardRef} tabIndex={-1}>
           <div className="quiz-card__header">
             <Badge tone="info">
               Question {publicQuestion.index + 1} / {publicQuestion.total}
@@ -164,16 +173,21 @@ function QuizRunner() {
         </div>
       ) : null}
       {session.phase === 'feedback' && lastResult ? (
-        <div className="quiz-card" data-testid="quiz-feedback">
-          <p className={`quiz-card__verdict ${lastResult.correct ? 'is-correct' : 'is-incorrect'}`}>
-            {lastResult.correct ? 'Correct' : 'Incorrect'}
-          </p>
-          <p>
-            The answer is{' '}
-            <strong>{lastResult.correct_structure_ids.map(labelFor).join(', ')}</strong> — now
-            highlighted on the model.
-          </p>
-          {lastResult.explanation ? <p>{lastResult.explanation}</p> : null}
+        <div className="quiz-card" data-testid="quiz-feedback" ref={cardRef} tabIndex={-1}>
+          {/* role=status so screen readers announce the graded verdict. */}
+          <div role="status">
+            <p
+              className={`quiz-card__verdict ${lastResult.correct ? 'is-correct' : 'is-incorrect'}`}
+            >
+              {lastResult.correct ? 'Correct' : 'Incorrect'}
+            </p>
+            <p>
+              The answer is{' '}
+              <strong>{lastResult.correct_structure_ids.map(labelFor).join(', ')}</strong> — now
+              highlighted on the model.
+            </p>
+            {lastResult.explanation ? <p>{lastResult.explanation}</p> : null}
+          </div>
           {lastResult.citations && lastResult.citations.length > 0 ? (
             <ul className="quiz-card__citations">
               {lastResult.citations.map((citation) => (

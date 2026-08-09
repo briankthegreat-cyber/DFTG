@@ -60,6 +60,24 @@ interface BundleRuntime {
   snapshot: BundleSnapshot;
   manifest?: BundleManifest;
   loadPromise?: Promise<void>;
+  /**
+   * Monotonic load generation. unloadBundle and each new request bump it; an
+   * in-flight load whose generation is stale must never publish its scene or
+   * emit 'ready' (it disposes what it built instead).
+   */
+  generation: number;
+}
+
+/** Dispose GPU-bound resources of a scene graph that never got registered. */
+function disposeObjectTree(root: Object3D): void {
+  root.traverse((object) => {
+    if (object instanceof Mesh) {
+      disposeMeshBvh(object);
+      object.geometry.dispose();
+      const material = object.material;
+      for (const mat of Array.isArray(material) ? material : [material]) mat.dispose();
+    }
+  });
 }
 
 async function sha256Hex(buffer: ArrayBuffer): Promise<string> {
@@ -91,6 +109,7 @@ export class AnatomyAssetRegistry {
     if (!runtime) {
       runtime = {
         snapshot: { bundleId, state: 'notRequested', progress: 0, diagnostics: [] },
+        generation: 0,
       };
       this.bundles.set(bundleId, runtime);
     }
@@ -228,11 +247,15 @@ export class AnatomyAssetRegistry {
       return runtime.loadPromise;
     }
     this.emit(bundleId, { state: 'queued', progress: 0 });
+    runtime.generation += 1;
+    const generation = runtime.generation;
     runtime.loadPromise = new Promise<void>((resolve) => {
       const start = () => {
         this.activeGeometryLoads += 1;
-        void this.loadBundleGeometry(bundleId)
+        void this.loadBundleGeometry(bundleId, generation)
           .catch((error: unknown) => {
+            // A load superseded by unload/re-request must not publish errors.
+            if (this.runtime(bundleId).generation !== generation) return;
             const diagnostic: RegistryDiagnostic =
               error instanceof AssetLoadError
                 ? error.diagnostic
@@ -265,7 +288,10 @@ export class AnatomyAssetRegistry {
     return runtime.loadPromise;
   }
 
-  private async fetchGlb(manifest: BundleManifest): Promise<ArrayBuffer> {
+  private async fetchGlb(
+    manifest: BundleManifest,
+    isStale: () => boolean = () => false,
+  ): Promise<ArrayBuffer> {
     const fetchFn = this.opts.fetchFn ?? fetch;
     const entry = this.index?.bundles.find((b) => b.bundle_id === manifest.bundle_id);
     const assetUrl = this.url(
@@ -291,7 +317,7 @@ export class AnatomyAssetRegistry {
       if (value) {
         chunks.push(value);
         received += value.byteLength;
-        if (total > 0) {
+        if (total > 0 && !isStale()) {
           this.emit(manifest.bundle_id, { progress: Math.min(0.95, received / total) });
         }
       }
@@ -305,15 +331,20 @@ export class AnatomyAssetRegistry {
     return buffer.buffer;
   }
 
-  private async loadBundleGeometry(bundleId: string): Promise<void> {
+  private async loadBundleGeometry(bundleId: string, generation: number): Promise<void> {
+    const isStale = () => this.runtime(bundleId).generation !== generation;
+
     this.emit(bundleId, { state: 'loadingManifest' });
     const manifest = await this.loadBundleManifest(bundleId);
+    if (isStale()) return;
     this.emit(bundleId, { state: 'loadingGeometry', progress: 0 });
 
-    const buffer = await this.fetchGlb(manifest);
+    const buffer = await this.fetchGlb(manifest, isStale);
+    if (isStale()) return;
 
     if (this.opts.verifyHashes && manifest.asset_sha256) {
       const actual = await sha256Hex(buffer);
+      if (isStale()) return;
       if (actual !== manifest.asset_sha256) {
         throw new AssetLoadError(
           `Geometry for "${bundleId}" failed integrity verification and was not loaded.`,
@@ -332,8 +363,16 @@ export class AnatomyAssetRegistry {
     const gltf = await new Promise<GLTF>((resolve, reject) => {
       new GLTFLoader().parse(buffer, '', resolve, (error) => reject(error));
     });
+    if (isStale()) {
+      disposeObjectTree(gltf.scene);
+      return;
+    }
 
     const scene = this.mapBindings(manifest, gltf);
+    if (isStale()) {
+      disposeObjectTree(scene.group);
+      return;
+    }
     sceneCache.set(scene);
 
     let triangleCount = 0;
@@ -454,6 +493,20 @@ export class AnatomyAssetRegistry {
       geometryIdsByStructureId.set(binding.structure_id, list);
     }
 
+    // Every rendered mesh must be accounted for by a binding: a GLB carrying
+    // geometry the manifest doesn't describe would otherwise bypass the
+    // license gate, visibility rules, and disposal. Reject the bundle.
+    gltf.scene.traverse((object) => {
+      if (object instanceof Mesh && object.userData['anatomy'] === undefined) {
+        diagnostics.push({
+          severity: 'error',
+          code: 'unbound_mesh_node',
+          bundle_id: manifest.bundle_id,
+          message: `glTF object "${object.name || '(unnamed)'}" carries mesh geometry but has no manifest binding`,
+        });
+      }
+    });
+
     const errors = diagnostics.filter((d) => d.severity === 'error');
     this.emit(manifest.bundle_id, {
       diagnostics: [...this.runtime(manifest.bundle_id).snapshot.diagnostics, ...diagnostics],
@@ -499,6 +552,8 @@ export class AnatomyAssetRegistry {
     }
     const runtime = this.runtime(bundleId);
     runtime.loadPromise = undefined;
+    // Invalidate any in-flight load so it cannot resurrect the bundle.
+    runtime.generation += 1;
     this.emit(bundleId, { state: 'disposed', progress: 0 });
   }
 

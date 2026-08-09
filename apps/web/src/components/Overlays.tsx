@@ -1,4 +1,4 @@
-import { useState, useSyncExternalStore } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { Button, InlineNotice, ProgressBar } from '@anatomy/ui';
 import {
   getPerfVersion,
@@ -134,7 +134,40 @@ const HELP_SECTIONS: { title: string; rows: [string, string][] }[] = [
 export function HelpOverlay() {
   const helpOpen = useAppStore((s) => s.helpOpen);
   const setHelpOpen = useAppStore((s) => s.setHelpOpen);
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
+  // Modal focus contract: move focus in on open, trap Tab inside, restore the
+  // opener's focus on close.
+  useEffect(() => {
+    if (!helpOpen) return;
+    const previous = document.activeElement as HTMLElement | null;
+    modalRef.current?.focus();
+    return () => previous?.focus();
+  }, [helpOpen]);
+
   if (!helpOpen) return null;
+
+  const trapFocus = (event: React.KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      setHelpOpen(false);
+      return;
+    }
+    if (event.key !== 'Tab' || !modalRef.current) return;
+    const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (!first || !last) return;
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
   return (
     <div className="modal-backdrop" onClick={() => setHelpOpen(false)}>
       <div
@@ -142,7 +175,10 @@ export function HelpOverlay() {
         role="dialog"
         aria-modal="true"
         aria-label="Controls help"
+        ref={modalRef}
+        tabIndex={-1}
         onClick={(event) => event.stopPropagation()}
+        onKeyDown={trapFocus}
       >
         <h2>Controls</h2>
         {HELP_SECTIONS.map((section) => (

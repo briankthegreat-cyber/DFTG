@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 import type { ThreeEvent } from '@react-three/fiber';
 import type { Mesh } from 'three';
 import { sceneCache } from '../scene-cache';
@@ -36,6 +36,15 @@ export function BundleGroups({ onPick, hoverEnabled, onHoverInfo }: BundleGroups
   const select = useSelectionStore((s) => s.select);
   const setHovered = useSelectionStore((s) => s.setHovered);
 
+  // When hover is disabled (touch devices, quiz mode) any stale hover state
+  // must clear immediately — a leftover glow could hint a quiz answer.
+  useEffect(() => {
+    if (!hoverEnabled) {
+      setHovered(null);
+      onHoverInfo?.(null);
+    }
+  }, [hoverEnabled, setHovered, onHoverInfo]);
+
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     // Ignore orbit drags that end on a mesh.
     if (event.delta > 4) return;
@@ -69,7 +78,8 @@ export function BundleGroups({ onPick, hoverEnabled, onHoverInfo }: BundleGroups
   };
 
   const handleOut = () => {
-    if (!hoverEnabled) return;
+    // Unconditional: hover state must always be clearable even if hover was
+    // disabled after the pointer entered a mesh.
     setHovered(null);
     onHoverInfo?.(null);
   };

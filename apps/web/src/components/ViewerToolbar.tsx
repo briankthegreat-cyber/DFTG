@@ -1,5 +1,12 @@
+import { useRef } from 'react';
 import { Button } from '@anatomy/ui';
-import { useCameraStore, useSelectionStore, useVisibilityStore } from '@anatomy/viewer';
+import {
+  snapshotVisibility,
+  useCameraStore,
+  useSelectionStore,
+  useVisibilityStore,
+  type VisibilitySnapshot,
+} from '@anatomy/viewer';
 import { hideSelected, isolateSelected, peelSelected } from '../controller';
 
 const VIEWS = [
@@ -16,6 +23,15 @@ export function ViewerToolbar() {
   const camera = useCameraStore();
   const visibility = useVisibilityStore();
   const selectedStructureId = useSelectionStore((s) => s.selectedStructureId);
+  // One undo entry per slider gesture, captured before the first preview tick.
+  const fadeGestureStart = useRef<VisibilitySnapshot | null>(null);
+
+  const endFadeGesture = () => {
+    if (fadeGestureStart.current) {
+      visibility.commitSnapshot(fadeGestureStart.current);
+      fadeGestureStart.current = null;
+    }
+  };
 
   return (
     <div className="viewer-toolbar" role="toolbar" aria-label="Viewer controls">
@@ -98,7 +114,15 @@ export function ViewerToolbar() {
             step={0.05}
             value={visibility.fadeOpacity}
             disabled={!visibility.fadeOthers}
-            onChange={(event) => visibility.setFade(true, Number(event.target.value))}
+            onChange={(event) => {
+              if (!fadeGestureStart.current) {
+                fadeGestureStart.current = snapshotVisibility(useVisibilityStore.getState());
+              }
+              visibility.previewFade(Number(event.target.value));
+            }}
+            onPointerUp={endFadeGesture}
+            onKeyUp={endFadeGesture}
+            onBlur={endFadeGesture}
             aria-label="Fade opacity"
           />
         </label>
