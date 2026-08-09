@@ -15,12 +15,16 @@ jobs:
           ref: claude/new-session-ommg9f
           fetch-depth: 0
 
-      - name: Apply decoder patch
+      - name: Apply decoder patch and quiz probe fix
         shell: bash
         run: |
-          base64 -d .codex-anatomy.patch.gz.b64 | gzip -dc > /tmp/anatomy.patch
+          git show 72a11a881fb06eb396e980b8af90f97a3e8862c6:.codex-anatomy.patch.gz.b64 | base64 -d | gzip -dc > /tmp/anatomy.patch
           git apply --check /tmp/anatomy.patch
           git apply /tmp/anatomy.patch
+          sed -i 's/Click the model (trunk area)/Click the current camera target/' apps/web/e2e/quiz.spec.ts
+          sed -i 's/both correct and incorrect answers must produce feedback/both correct and incorrect mesh picks must produce feedback/' apps/web/e2e/quiz.spec.ts
+          sed -i 's/box.height \* 0.42/box.height \/ 2/' apps/web/e2e/quiz.spec.ts
+          grep -F 'x: box.width / 2, y: box.height / 2' apps/web/e2e/quiz.spec.ts
 
       - uses: actions/setup-node@v4
         with:
