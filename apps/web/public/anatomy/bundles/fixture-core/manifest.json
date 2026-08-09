@@ -6,6 +6,9 @@
   "stage": "development_fixture",
   "coordinate_system_id": "ANAT_CANONICAL_LSA_YUP_M_V1_1",
   "asset_path": "model.glb",
+  "encodings": [
+    "meshopt"
+  ],
   "development_fixture": true,
   "bindings": [
     {

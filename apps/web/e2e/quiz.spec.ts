@@ -21,12 +21,19 @@ test('complete an identify-on-model quiz session', async ({ page }) => {
     await expect(prompt).toBeVisible();
     const isIdentify = (await prompt.getByText('Click the structure on the model.').count()) > 0;
     if (isIdentify) {
-      const box = await canvas.boundingBox();
-      if (!box) throw new Error('canvas not measurable');
-      // Click the model (trunk area). Correctness is graded by structure_id;
-      // both correct and incorrect answers must produce feedback.
-      await canvas.click({ position: { x: box.width / 2, y: box.height * 0.42 } });
-    } else {
+    const box = await canvas.boundingBox();
+    if (!box) throw new Error('canvas not measurable');
+    const feedback = page.getByTestId('quiz-feedback');
+    // Probe the visible model area until a real mesh is picked. Any picked mesh is a
+    // valid identify response; grading still happens by stable structure_id.
+    probeLoop: for (const y of [0.3, 0.4, 0.5, 0.6, 0.7]) {
+for (const x of [0.3, 0.4, 0.5, 0.6, 0.7]) {
+  await canvas.click({ position: { x: box.width * x, y: box.height * y } });
+  await page.waitForTimeout(40);
+  if ((await feedback.count()) > 0) break probeLoop;
+}
+    }
+  } else {
       await prompt.locator('[data-testid^="quiz-option-"]').first().click();
     }
     const feedback = page.getByTestId('quiz-feedback');

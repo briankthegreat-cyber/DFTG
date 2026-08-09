@@ -309,6 +309,8 @@ export interface FixtureBundleDef {
   display_name: string;
   root_node_name: string;
   initial: boolean;
+  /** Optional decoder wiring exercised by this synthetic fixture bundle. */
+  encodings?: BundleManifest['encodings'];
   nodes: FixtureNodeDef[];
 }
 
@@ -395,6 +397,9 @@ export const FIXTURE_CORE_BUNDLE: FixtureBundleDef = {
   display_name: 'Fixture Core (dev)',
   root_node_name: 'FIX-ORG-CORE',
   initial: false,
+  // The geometry is deliberately tiny/uncompressed; declaring meshopt here
+  // exercises the manifest-driven decoder path without adding an encoder dependency.
+  encodings: ['meshopt'],
   nodes: [
     {
       geometry_id: 'FIX-G-CORE-A',
@@ -515,6 +520,7 @@ export function buildFixtureBundleManifest(def: FixtureBundleDef): BundleManifes
     stage: 'development_fixture',
     coordinate_system_id: COORDINATE_SYSTEM_ID,
     asset_path: 'model.glb',
+    ...(def.encodings !== undefined ? { encodings: def.encodings } : {}),
     development_fixture: true,
     bindings: def.nodes.map((node, i) => bindingForNode(node, i + 1)),
   };

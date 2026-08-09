@@ -126,6 +126,9 @@ export type GeometryBinding = z.infer<typeof GeometryBindingSchema>;
 export const BundleStageSchema = z.enum(['development_fixture', 'preliminary', 'production']);
 export type BundleStage = z.infer<typeof BundleStageSchema>;
 
+export const AssetEncodingSchema = z.enum(['draco', 'meshopt', 'ktx2']);
+export type AssetEncoding = z.infer<typeof AssetEncodingSchema>;
+
 export const BundleManifestSchema = z
   .object({
     schema_version: z.string().min(1),
@@ -137,6 +140,8 @@ export const BundleManifestSchema = z
     asset_path: z.string().min(1),
     asset_sha256: z.string().regex(SHA256_PATTERN).optional(),
     asset_byte_length: z.number().int().positive().optional(),
+    /** Decoder capabilities GLTFLoader must have available before parsing this bundle. */
+    encodings: z.array(AssetEncodingSchema).optional(),
     development_fixture: z.boolean().default(false),
     bindings: z.array(GeometryBindingSchema).min(1),
   })

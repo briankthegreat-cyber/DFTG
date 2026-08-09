@@ -16,6 +16,18 @@ describe('BundleManifestSchema', () => {
     expect(parsed.bindings).toHaveLength(1);
   });
 
+  it('accepts supported optional asset encodings', () => {
+    const parsed = BundleManifestSchema.parse(
+      makeManifest({ encodings: ['draco', 'meshopt', 'ktx2'] }),
+    );
+    expect(parsed.encodings).toEqual(['draco', 'meshopt', 'ktx2']);
+  });
+
+  it('rejects unknown asset encodings', () => {
+    const bad = { ...makeManifest(), encodings: ['zip'] };
+    expect(BundleManifestSchema.safeParse(bad).success).toBe(false);
+  });
+
   it('rejects any coordinate_system_id other than the canonical one', () => {
     const bad = { ...makeManifest(), coordinate_system_id: 'ANAT_SOME_OTHER_SYSTEM_V9' };
     const result = BundleManifestSchema.safeParse(bad);

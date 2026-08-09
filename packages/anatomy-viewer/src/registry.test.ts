@@ -1,6 +1,7 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildGlbBytes } from '@anatomy/asset-tools';
 import { makeBinding, makeManifest, type BundleManifest, type MasterIndex } from '@anatomy/core';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { AnatomyAssetRegistry } from './registry';
 import { sceneCache } from './scene-cache';
 import { applyEffectState, PRISTINE_EFFECT } from './materials';
@@ -49,9 +50,10 @@ function binding(geometryId: string, structureId: string, nodeIndex: number, ext
   });
 }
 
-function goodManifest(): BundleManifest {
+function goodManifest(encodings?: BundleManifest['encodings']): BundleManifest {
   return makeManifest({
     bundle_id: 'test-bundle',
+    ...(encodings !== undefined ? { encodings } : {}),
     bindings: [
       binding('TEST-G-A', 'TEST-S-A', 1),
       binding('TEST-G-B1', 'TEST-S-B', 2),
@@ -111,6 +113,10 @@ beforeEach(() => {
   sceneCache.delete('test-bundle');
 });
 
+afterEach(() => {
+  vi.restoreAllMocks();
+});
+
 describe('AnatomyAssetRegistry', () => {
   it('maps glTF nodes to bindings with stable IDs in userData', async () => {
     const { registry, snapshots } = makeRegistry(goodManifest());
@@ -135,6 +141,16 @@ describe('AnatomyAssetRegistry', () => {
     expect(states).toContain('queued');
     expect(states).toContain('loadingGeometry');
     expect(states[states.length - 1]).toBe('ready');
+  });
+
+  it('attaches MeshoptDecoder only for a manifest-declared meshopt fixture variant', async () => {
+    const setMeshoptDecoder = vi.spyOn(GLTFLoader.prototype, 'setMeshoptDecoder');
+    const { registry } = makeRegistry(goodManifest(['meshopt']));
+
+    await registry.requestBundle('test-bundle');
+
+    expect(registry.getSnapshot('test-bundle').state).toBe('ready');
+    expect(setMeshoptDecoder).toHaveBeenCalledTimes(1);
   });
 
   it('groups a multi-node structure under one structure_id', async () => {

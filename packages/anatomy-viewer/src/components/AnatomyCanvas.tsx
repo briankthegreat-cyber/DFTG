@@ -118,6 +118,7 @@ export function AnatomyCanvas({
       gl={{ antialias: qualityConfig.antialias, powerPreference: 'high-performance' }}
       camera={{ fov: 45, near: 0.05, far: 60, position: [0, 1.4, 2.8] }}
       onCreated={({ gl }) => {
+        registry.setRenderer(gl);
         gl.domElement.addEventListener('webglcontextlost', (event) => {
           event.preventDefault();
           onContextLost?.();

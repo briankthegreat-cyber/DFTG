@@ -1,5 +1,8 @@
-import { Box3, Group, Mesh, Vector3, type Object3D } from 'three';
+import { Box3, Group, Mesh, Vector3, type Object3D, type WebGLRenderer } from 'three';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 import {
   BundleManifestSchema,
   MasterIndexSchema,
@@ -53,6 +56,8 @@ export interface RegistryOptions {
   verifyHashes?: boolean;
   fetchFn?: typeof fetch;
   maxConcurrentGeometry?: number;
+  /** Defaults to <baseUrl>/decoders; expected subdirs are draco/ and basis/. */
+  decoderBaseUrl?: string;
   onSnapshot?: (snapshot: BundleSnapshot) => void;
 }
 
@@ -91,6 +96,9 @@ export class AnatomyAssetRegistry {
   private geometryQueue: Array<() => void> = [];
   private activeGeometryLoads = 0;
   private readonly maxConcurrent: number;
+  private renderer: WebGLRenderer | null = null;
+  private dracoLoader: DRACOLoader | null = null;
+  private ktx2Loader: KTX2Loader | null = null;
 
   constructor(private readonly opts: RegistryOptions) {
     this.maxConcurrent = opts.maxConcurrentGeometry ?? 2;
@@ -100,8 +108,56 @@ export class AnatomyAssetRegistry {
     return this.opts.policy;
   }
 
+  /** Supply the live renderer so KTX2 can choose a supported GPU texture format. */
+  setRenderer(renderer: WebGLRenderer): void {
+    this.renderer = renderer;
+    this.ktx2Loader?.detectSupport(renderer);
+  }
+
   private url(path: string): string {
     return `${this.opts.baseUrl.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`;
+  }
+
+  private decoderUrl(subdirectory: 'draco' | 'basis'): string {
+    const root = (this.opts.decoderBaseUrl ?? `${this.opts.baseUrl.replace(/\/+$/, '')}/decoders`).replace(
+      /\/+$/,
+      '',
+    );
+    return `${root}/${subdirectory}/`;
+  }
+
+  /** Build only the decoder capabilities explicitly declared by the bundle manifest. */
+  private createGltfLoader(manifest: BundleManifest): GLTFLoader {
+    const loader = new GLTFLoader();
+    const encodings = new Set(manifest.encodings ?? []);
+
+    if (encodings.has('draco')) {
+      this.dracoLoader ??= new DRACOLoader().setDecoderPath(this.decoderUrl('draco'));
+      loader.setDRACOLoader(this.dracoLoader);
+    }
+
+    if (encodings.has('meshopt')) {
+      loader.setMeshoptDecoder(MeshoptDecoder);
+    }
+
+    if (encodings.has('ktx2')) {
+      if (!this.renderer) {
+        throw new AssetLoadError(
+          `Geometry for "${manifest.bundle_id}" requires KTX2 texture decoding before the renderer is ready.`,
+          {
+            severity: 'error',
+            code: 'ktx2_renderer_unavailable',
+            bundle_id: manifest.bundle_id,
+            message: 'KTX2Loader requires a WebGL renderer for detectSupport() before parsing',
+          },
+        );
+      }
+      this.ktx2Loader ??= new KTX2Loader().setTranscoderPath(this.decoderUrl('basis'));
+      this.ktx2Loader.detectSupport(this.renderer);
+      loader.setKTX2Loader(this.ktx2Loader);
+    }
+
+    return loader;
   }
 
   private runtime(bundleId: string): BundleRuntime {
@@ -361,7 +417,7 @@ export class AnatomyAssetRegistry {
     }
 
     const gltf = await new Promise<GLTF>((resolve, reject) => {
-      new GLTFLoader().parse(buffer, '', resolve, (error) => reject(error));
+      this.createGltfLoader(manifest).parse(buffer, '', resolve, (error) => reject(error));
     });
     if (isStale()) {
       disposeObjectTree(gltf.scene);

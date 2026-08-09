@@ -31,7 +31,8 @@ code) ran before handoff; all confirmed defects were fixed with regression tests
 - Normalized anatomy index with duplicate/orphan/cycle detection and synthesized
   entries for bindings missing from the ontology.
 - `AnatomyAssetRegistry`: data-driven bundle discovery, manifest validation before
-  GLB fetch, streaming progress, optional SHA-256 verification, node↔binding mapping
+  GLB fetch, manifest-declared Draco/Meshopt/KTX2 loader wiring, streaming progress,
+  optional SHA-256 verification, node↔binding mapping
   with hard rejection of mismatches, license-policy filtering before scene exposure,
   concurrency-capped lazy loading, unload with geometry/material/BVH disposal.
 - Development fixture (2 bundles, 11 bindings, 13 structures incl. one multi-node
@@ -56,9 +57,9 @@ code) ran before handoff; all confirmed defects were fixed with regression tests
 - Commands (all green as of this commit):
   - `pnpm typecheck` — 5/5 packages pass
   - `pnpm lint` — clean
-  - `pnpm test` — 11 files, 79 tests pass (schemas, ontology, search, policy, quiz,
+  - `pnpm test` — 11 files, 82 tests pass (schemas incl. asset encodings, ontology, search, policy, quiz,
     storage, GLB round-trip, registry mapping incl. mismatch/license/unload,
-    unload-during-load race, unbound-node rejection, visibility undo/redo +
+    decoder wiring, unload-during-load race, unbound-node rejection, visibility undo/redo +
     slider-gesture history, selection convergence, UI components)
   - `pnpm build` — passes (bundle ~1.34 MB minified / ~378 kB gzip; three.js dominates)
   - `pnpm validate:anatomy-assets` — 0 errors; `-- --policy external_preview` fails
@@ -87,9 +88,6 @@ code) ran before handoff; all confirmed defects were fixed with regression tests
 
 ## Intentionally deferred
 
-- Draco/Meshopt/KTX2 decoders: loader hook exists at one call site
-  (`GLTFLoader` construction in `registry.ts`); decoders not wired because the
-  fixture is uncompressed. Add `DRACOLoader`/`KTX2Loader` there when real bundles use them.
 - Label screen-space decluttering beyond the fixed budget (12) and data-driven
   landmark anchors.
 - Quality tiers beyond dpr/antialias (shadow/effect toggles exist as settings only).
@@ -111,10 +109,6 @@ code) ran before handoff; all confirmed defects were fixed with regression tests
 
 ## Exact next steps for Codex
 
-1. **Wire compression decoders** (`packages/anatomy-viewer/src/registry.ts`): create
-   the `GLTFLoader` via a small factory that attaches `DRACOLoader`/`KTX2Loader`/
-   Meshopt when the manifest (add an `encodings` field) declares them; add a
-   fixture bundle variant exercising it.
-2. Then: point `VITE_ANATOMY_ASSET_BASE_URL` at the first real preliminary bundle
+1. Point `VITE_ANATOMY_ASSET_BASE_URL` at the first real preliminary bundle
    (skeletal), run `pnpm validate:anatomy-assets -- --dir <mirror>`, and profile
    load/pick with the perf overlay; capture numbers here.

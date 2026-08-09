@@ -12,6 +12,9 @@ production bundles **without touching viewer code**.
     coordinate_system_v1_1.json   # coordinate contract descriptor
   ontology/
     structures.json               # OntologyFileSchema — may contain structures WITHOUT geometry
+  decoders/                       # only needed by bundles declaring compressed encodings
+    draco/                         # Draco decoder JS/WASM files
+    basis/                         # KTX2 Basis transcoder JS/WASM files
   bundles/
     <bundle_id>/
       manifest.json               # BundleManifestSchema (bindings included)
@@ -42,6 +45,19 @@ anatomical position, support-plane origin (Y=0, midsagittal X=0, Z=0 between hee
 centers). Canonical release root transforms are identity with transforms baked into
 vertices — the validator rejects any node carrying TRS/matrix, and the viewer never
 applies runtime recentering/mirroring/scaling.
+
+## Compression decoder declaration
+
+`manifest.json` may include `encodings: ["draco", "meshopt", "ktx2"]`. The
+registry creates a fresh `GLTFLoader` for the bundle and attaches only the decoders
+that manifest declares. Meshopt ships as an ES module with Three.js. Draco and KTX2
+worker/transcoder files are resolved from `<base>/decoders/draco/` and
+`<base>/decoders/basis/` respectively (or an explicit registry `decoderBaseUrl`).
+KTX2 support is initialized against the live WebGL renderer before texture parsing.
+
+The development `fixture-core` bundle declares `meshopt` to exercise this conditional
+wiring while keeping its tiny generated GLB intentionally uncompressed. Production
+manifests should declare only encodings actually used by their GLB.
 
 ## Manifest → node mapping
 
