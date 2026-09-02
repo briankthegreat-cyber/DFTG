@@ -10,11 +10,11 @@ export default function TeamGrid() {
           <GlareHover
             width="100%"
             height="100%"
-            background="rgba(12,16,32,0.8)"
+            background="#ffffff"
             borderRadius="24px"
-            borderColor="rgba(255,255,255,0.1)"
-            glareColor="#d8b46a"
-            glareOpacity={0.25}
+            borderColor="rgba(184,147,79,0.22)"
+            glareColor="#d9bb85"
+            glareOpacity={0.45}
             glareAngle={-35}
             glareSize={260}
             transitionDuration={900}
@@ -24,7 +24,7 @@ export default function TeamGrid() {
               {m.photo ? (
                 <img src={m.photo} alt={m.name} className="h-24 w-24 rounded-2xl object-cover" />
               ) : (
-                <span className="font-display grid h-24 w-24 place-items-center rounded-2xl bg-gradient-to-br from-[#1a1f36] to-[#0b0e1a] text-3xl text-gold-light ring-1 ring-gold/30">
+                <span className="font-display grid h-24 w-24 place-items-center rounded-2xl bg-gradient-to-br from-sand to-gold-pale text-3xl text-gold ring-1 ring-gold/30">
                   {m.initials}
                 </span>
               )}
@@ -34,7 +34,7 @@ export default function TeamGrid() {
                   {m.credential && <span className="ml-2 text-base text-gold">{m.credential}</span>}
                 </h3>
                 <p className="mt-1 text-xs tracking-[0.2em] text-gold/80 uppercase">{m.role}</p>
-                <p className="mt-3 text-sm leading-relaxed text-cream/60">{m.blurb}</p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/60">{m.blurb}</p>
               </div>
             </div>
           </GlareHover>

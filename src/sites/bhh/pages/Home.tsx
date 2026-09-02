@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, CalendarCheck, MapPin, Clock, ChevronDown } from 'lucide-react';
-import LightRays from '@react-bits/Backgrounds/LightRays/LightRays';
+import Silk from '@react-bits/Backgrounds/Silk/Silk';
+import GradualBlur from '@react-bits/Animations/GradualBlur/GradualBlur';
+import ScrollVelocity from '@react-bits/TextAnimations/ScrollVelocity/ScrollVelocity';
 import Particles from '@react-bits/Backgrounds/Particles/Particles';
 import BlurText from '@react-bits/TextAnimations/BlurText/BlurText';
 import RotatingText from '@react-bits/TextAnimations/RotatingText/RotatingText';
@@ -13,7 +15,7 @@ import ScrollStack, { ScrollStackItem } from '@react-bits/Components/ScrollStack
 import TiltedCard from '@react-bits/Components/TiltedCard/TiltedCard';
 import ElectricBorder from '@react-bits/Animations/ElectricBorder/ElectricBorder';
 import { clinic, doctor, brand, featuredServices, services, pillars, steps, sampleTestimonials } from '../data';
-import { Button, Eyebrow, Reveal, Section, Title, Divider } from '../components/ui';
+import { Button, Eyebrow, Reveal, Section, Title, Divider, FloatTitle, MagnetWrap, Parallax, Orb } from '../components/ui';
 import ServiceCard from '../components/ServiceCard';
 
 const stats = [
@@ -32,27 +34,17 @@ export default function Home() {
     <main className="relative">
       {/* HERO */}
       <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#d8b46a"
-            raysSpeed={0.9}
-            lightSpread={1.1}
-            rayLength={1.6}
-            followMouse
-            mouseInfluence={0.12}
-            noiseAmount={0.06}
-            distortion={0.03}
-            className="h-full w-full"
-          />
-        </div>
         <div className="absolute inset-0 opacity-70">
+          <Silk speed={3} scale={1.1} color="#d9bb85" noiseIntensity={1.2} rotation={0.25} lightMode />
+        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(250,246,238,0.35),rgba(250,246,238,0.9)_75%)]" />
+        <div className="absolute inset-0 opacity-80">
           <Particles
-            particleColors={['#ecd6a2', '#d8b46a', '#5ee7d3']}
-            particleCount={140}
+            particleColors={['#b8934f', '#d9bb85']}
+            particleCount={110}
             particleSpread={12}
-            speed={0.06}
-            particleBaseSize={80}
+            speed={0.05}
+            particleBaseSize={70}
             moveParticlesOnHover
             particleHoverFactor={0.6}
             alphaParticles
@@ -60,19 +52,19 @@ export default function Home() {
             className="h-full w-full"
           />
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-ink to-transparent" />
+        <GradualBlur position="bottom" height="9rem" strength={2} divCount={6} curve="bezier" target="parent" />
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pt-32 pb-24 text-center">
-          <img src="/bhh/logo.svg" alt="" className="mb-6 h-16 w-16 drop-shadow-[0_0_30px_rgba(216,180,106,0.5)]" />
-          <ShinyText text={brand.motto} className="mb-6 text-[0.7rem] font-semibold tracking-[0.4em] uppercase" speed={3} />
+          <img src="/bhh/logo.svg" alt="" className="mb-6 h-16 w-16 drop-shadow-[0_8px_24px_rgba(184,147,79,0.45)]" />
+          <ShinyText text={brand.motto} className="mb-6 text-[0.7rem] font-semibold tracking-[0.4em] uppercase" speed={3} color="#b8934f" shineColor="#fff3d6" />
           <Title text={brand.headline} as="h1" align="center" splitType="chars" className="max-w-4xl text-5xl md:text-7xl lg:text-[5.5rem]" />
           <BlurText
             text={brand.mission}
-            className="mt-8 max-w-2xl justify-center text-base leading-relaxed text-cream/70 md:text-lg"
+            className="mt-8 max-w-2xl justify-center text-base leading-relaxed text-ink/70 md:text-lg"
             animateBy="words"
             delay={35}
           />
-          <div className="mt-8 flex flex-col items-center gap-3 text-xs tracking-[0.2em] text-cream/60 uppercase sm:flex-row sm:text-sm">
+          <div className="mt-8 flex flex-col items-center gap-3 text-xs tracking-[0.2em] text-ink/60 uppercase sm:flex-row sm:text-sm">
             <span>Specializing in</span>
             <RotatingText
               texts={['Primary Care', 'Medical Weight Loss', 'IV Therapy', 'Emsculpt Neo', 'Telehealth', 'Geriatric Care']}
@@ -88,30 +80,49 @@ export default function Home() {
             />
           </div>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Button to={clinic.bookingHref}>
-              <CalendarCheck className="h-4 w-4" /> Book an appointment
-            </Button>
-            <Button to={clinic.phoneHref} variant="ghost">
-              <Phone className="h-4 w-4" /> {clinic.phone}
-            </Button>
+            <MagnetWrap>
+              <Button to={clinic.bookingHref}>
+                <CalendarCheck className="h-4 w-4" /> Book an appointment
+              </Button>
+            </MagnetWrap>
+            <MagnetWrap>
+              <Button to={clinic.phoneHref} variant="ghost">
+                <Phone className="h-4 w-4" /> {clinic.phone}
+              </Button>
+            </MagnetWrap>
           </div>
         </div>
-        <a href="#intro" className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-cream/50 transition hover:text-gold" aria-label="Scroll">
+        <a href="#intro" className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-ink/50 transition hover:text-gold" aria-label="Scroll">
           <ChevronDown className="h-6 w-6 animate-bounce" />
         </a>
       </section>
 
+      {/* TICKER: speeds up and reverses with scroll */}
+      <div className="ticker relative -mt-6 border-y border-gold/15 bg-sand/60 py-4">
+        <ScrollVelocity
+          texts={[
+            'Primary Care  ✦  Medical Weight Loss  ✦  IV Therapy  ✦  Emsculpt Neo  ✦  Annual Physicals  ✦  Telehealth  ✦  ',
+            'Osteopathic Treatment  ✦  Podiatry  ✦  Geriatric Care  ✦  Pre-Op Clearance  ✦  House Calls  ✦  B12 Shots  ✦  '
+          ]}
+          velocity={60}
+          numCopies={4}
+          scrollerClassName="scroller text-gold/70"
+          className="px-3"
+        />
+      </div>
+
       {/* STATS */}
       <Section id="intro" className="!py-16">
-        <div className="grid gap-8 rounded-3xl border border-white/10 bg-white/[0.03] p-8 md:grid-cols-4 md:p-10">
+        <Orb className="-top-20 -left-32" speed={0.5} />
+        <div className="grid gap-8 rounded-3xl border border-gold/20 card p-8 md:grid-cols-4 md:p-10">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.1}>
               <div className="text-center md:text-left">
-                <p className="font-display text-5xl font-semibold text-gold-light">
+                <p className="font-display text-5xl font-semibold text-gold">
                   <CountUp to={s.value} duration={1.6} />
                   {s.suffix}
                 </p>
-                <p className="mt-2 text-sm text-cream/55">{s.label}</p>
+                <p className="mt-2 text-sm text-ink/55">{s.label}</p>
               </div>
             </Reveal>
           ))}
@@ -122,18 +133,18 @@ export default function Home() {
       <Section className="!pt-8">
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>Why patients stay</Eyebrow>
-          <Title text="Medicine that knows your name." align="center" className="text-4xl md:text-6xl" />
-          <p className="mt-6 text-cream/60">
+          <FloatTitle text="Medicine that knows your name." align="center" className="text-4xl md:text-6xl" />
+          <p className="mt-6 text-ink/60">
             Beverly Hills Health is built around a single physician-led team, so you are never a stranger at your own doctor's office.
           </p>
         </div>
         <div className="mt-14 grid gap-6 md:grid-cols-4">
           {pillars.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.1}>
-              <div className="glass grain relative h-full rounded-3xl p-7">
-                <span className="font-display text-5xl text-gold/30">0{i + 1}</span>
+              <div className="card grain relative h-full rounded-3xl p-7">
+                <span className="font-display text-5xl text-gold/35">0{i + 1}</span>
                 <h3 className="font-display mt-4 text-2xl font-semibold">{p.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-cream/60">{p.body}</p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/60">{p.body}</p>
               </div>
             </Reveal>
           ))}
@@ -142,10 +153,11 @@ export default function Home() {
 
       {/* SERVICES */}
       <Section id="services">
+        <Orb className="top-10 -right-40" speed={0.35} />
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <Eyebrow>Services</Eyebrow>
-            <Title text="Primary care and modern wellness, in one place." className="max-w-2xl text-4xl md:text-6xl" />
+            <FloatTitle text="Primary care and modern wellness, in one place." className="text-4xl md:text-6xl" />
           </div>
           <Link to="/services" className="text-sm font-semibold text-gold underline-offset-4 hover:underline">
             View all {services.length} services
@@ -172,6 +184,7 @@ export default function Home() {
 
       {/* PHILOSOPHY */}
       <Section className="!py-20">
+        <Orb className="top-0 -left-40" speed={0.3} />
         <Divider />
         <div className="mx-auto mt-16 max-w-4xl">
           <ScrollReveal
@@ -179,7 +192,7 @@ export default function Home() {
             baseOpacity={0.08}
             baseRotation={2}
             blurStrength={6}
-            textClassName="font-display text-3xl md:text-5xl leading-[1.25] font-medium text-cream"
+            textClassName="font-display text-3xl md:text-5xl leading-[1.25] font-medium text-ink"
           >
             Honest healthcare means telling you what you need, what you do not, and why. It means a doctor who reads your labs with you, answers the phone, and treats prevention as seriously as treatment.
           </ScrollReveal>
@@ -190,21 +203,21 @@ export default function Home() {
       <Section className="!pt-0">
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>Your first visit</Eyebrow>
-          <Title text="Simple from the first call." align="center" className="text-4xl md:text-6xl" />
+          <FloatTitle text="Simple from the first call." align="center" className="text-4xl md:text-6xl" />
         </div>
         <div className="mt-10">
           <ScrollStack useWindowScroll itemDistance={80} itemStackDistance={24} baseScale={0.88} stackPosition="18%" scaleEndPosition="8%">
             {steps.map(step => (
               <ScrollStackItem
                 key={step.n}
-                itemClassName="!bg-[#0c1020] !border !border-white/10 !shadow-[0_30px_80px_-30px_rgba(216,180,106,0.25)]"
+                itemClassName="!bg-white !border !border-gold/20 !shadow-[0_30px_80px_-30px_rgba(120,90,30,0.35)]"
               >
                 <div className="flex h-full flex-col justify-between gap-6 md:flex-row md:items-center">
                   <div>
                     <span className="font-display text-7xl text-gold/40">{step.n}</span>
                     <h3 className="font-display mt-2 text-3xl font-semibold md:text-4xl">{step.title}</h3>
                   </div>
-                  <p className="max-w-md text-base leading-relaxed text-cream/65">{step.body}</p>
+                  <p className="max-w-md text-base leading-relaxed text-ink/65">{step.body}</p>
                 </div>
               </ScrollStackItem>
             ))}
@@ -216,7 +229,7 @@ export default function Home() {
       <Section>
         <div className="grid items-center gap-14 md:grid-cols-[0.9fr_1.1fr]">
           <Reveal direction="horizontal" distance={80}>
-            <div className="flex justify-center">
+            <Parallax speed={0.25} className="flex justify-center">
               <TiltedCard
                 imageSrc={doctor.photo}
                 altText={doctor.name}
@@ -231,19 +244,19 @@ export default function Home() {
                 showTooltip={false}
                 displayOverlayContent
                 overlayContent={
-                  <span className="m-5 inline-block rounded-full bg-black/50 px-4 py-1.5 text-xs tracking-[0.2em] text-gold uppercase backdrop-blur">
+                  <span className="m-5 inline-block rounded-full bg-white/80 px-4 py-1.5 text-xs tracking-[0.2em] text-gold uppercase backdrop-blur">
                     {doctor.role}
                   </span>
                 }
               />
-            </div>
+            </Parallax>
           </Reveal>
           <div>
             <Eyebrow>Meet your physician</Eyebrow>
             <Title text={doctor.name} className="text-4xl md:text-6xl" />
             <p className="mt-3 text-sm tracking-[0.2em] text-gold/80 uppercase">{doctor.board}</p>
-            <p className="mt-6 leading-relaxed text-cream/65">{doctor.intro}</p>
-            <ul className="mt-6 space-y-2 text-sm text-cream/60">
+            <p className="mt-6 leading-relaxed text-ink/65">{doctor.intro}</p>
+            <ul className="mt-6 space-y-2 text-sm text-ink/60">
               <li>Medical degree, {doctor.school}</li>
               <li>Residency, {doctor.residency}</li>
               <li>{doctor.years}+ years in personalized and wellness medicine</li>
@@ -259,20 +272,20 @@ export default function Home() {
       <Section className="!py-16">
         <div className="mb-10 flex flex-col items-center gap-3 text-center">
           <Eyebrow>Patient voices</Eyebrow>
-          <GradientText colors={['#ecd6a2', '#d8b46a', '#5ee7d3', '#d8b46a', '#ecd6a2']} animationSpeed={6} className="font-display text-4xl font-semibold md:text-5xl">
+          <GradientText colors={['#b8934f', '#d9bb85', '#2a9d8f', '#d9bb85', '#b8934f']} animationSpeed={6} className="font-display text-4xl font-semibold md:text-5xl">
             Rated 5.0 by our patients
           </GradientText>
-          <span className="rounded-full border border-amber-400/40 bg-amber-400/10 px-3 py-1 text-[0.65rem] tracking-[0.2em] text-amber-200 uppercase">
+          <span className="rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-[0.65rem] tracking-[0.2em] text-amber-800 uppercase">
             Sample quotes below, replace with real reviews before launch
           </span>
         </div>
         <div className="relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
           <div className="flex w-max animate-[marquee_40s_linear_infinite] gap-6 hover:[animation-play-state:paused]">
             {[...sampleTestimonials, ...sampleTestimonials].map((t, i) => (
-              <figure key={i} className="glass w-[340px] shrink-0 rounded-3xl p-7">
+              <figure key={i} className="card w-[340px] shrink-0 rounded-3xl p-7">
                 <div className="text-gold">★★★★★</div>
                 <blockquote className="font-display mt-4 text-xl leading-snug">“{t.quote}”</blockquote>
-                <figcaption className="mt-5 text-xs tracking-[0.15em] text-cream/50 uppercase">
+                <figcaption className="mt-5 text-xs tracking-[0.15em] text-ink/50 uppercase">
                   {t.name} · {t.context}
                 </figcaption>
               </figure>
@@ -284,12 +297,12 @@ export default function Home() {
 
       {/* VISIT / CTA */}
       <Section>
-        <ElectricBorder color="#d8b46a" speed={0.8} chaos={0.4} borderRadius={32}>
-          <div className="grain relative grid gap-10 overflow-hidden rounded-[32px] bg-[#0c1020] p-8 md:grid-cols-[1.2fr_1fr] md:p-14">
+        <ElectricBorder color="#c9a86a" speed={0.8} chaos={0.4} borderRadius={32}>
+          <div className="grain relative grid gap-10 overflow-hidden rounded-[32px] bg-white p-8 md:grid-cols-[1.2fr_1fr] md:p-14">
             <div>
               <Eyebrow>Visit us</Eyebrow>
-              <Title text="In the heart of Beverly Hills and West LA." className="text-4xl md:text-5xl" />
-              <p className="mt-5 max-w-lg text-cream/60">
+              <FloatTitle text="In the heart of Beverly Hills and West LA." className="text-4xl md:text-5xl" />
+              <p className="mt-5 max-w-lg text-ink/60">
                 A modern, calm clinic on Pico Boulevard with easy parking, short waits, and a team that knows you by name.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
@@ -306,7 +319,7 @@ export default function Home() {
                 <MapPin className="mt-1 h-5 w-5 shrink-0 text-gold" />
                 <div>
                   <p className="font-semibold">Address</p>
-                  <a href={clinic.address.mapsHref} target="_blank" rel="noreferrer" className="text-cream/60 hover:text-gold">
+                  <a href={clinic.address.mapsHref} target="_blank" rel="noreferrer" className="text-ink/60 hover:text-gold">
                     {clinic.address.line1}, {clinic.address.line2}
                   </a>
                 </div>
@@ -315,8 +328,8 @@ export default function Home() {
                 <Phone className="mt-1 h-5 w-5 shrink-0 text-gold" />
                 <div>
                   <p className="font-semibold">Phone</p>
-                  <a href={clinic.phoneHref} className="text-cream/60 hover:text-gold">{clinic.phone}</a>
-                  <p className="text-cream/40">Fax {clinic.fax}</p>
+                  <a href={clinic.phoneHref} className="text-ink/60 hover:text-gold">{clinic.phone}</a>
+                  <p className="text-ink/40">Fax {clinic.fax}</p>
                 </div>
               </div>
               <div className="flex gap-4">
@@ -324,7 +337,7 @@ export default function Home() {
                 <div>
                   <p className="font-semibold">Hours</p>
                   {clinic.hours.map(h => (
-                    <p key={h.day} className="text-cream/60">
+                    <p key={h.day} className="text-ink/60">
                       {h.day}: {h.time}
                     </p>
                   ))}

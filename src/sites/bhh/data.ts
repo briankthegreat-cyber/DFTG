@@ -71,7 +71,7 @@ export const services: Service[] = [
     short: 'Your physician for everyday health, chronic conditions, and the moments in between.',
     tagline: 'One doctor. The whole picture.',
     icon: Stethoscope,
-    colors: ['#d8b46a', '#5ee7d3', '#d8b46a'],
+    colors: ['#d9bb85', '#8fcfc4', '#d9bb85'],
     featured: true,
     description: [
       'Primary care at Beverly Hills Health means an ongoing relationship with a board-certified family physician who manages your health over time, not a different provider at every visit.',
@@ -104,7 +104,7 @@ export const services: Service[] = [
     short: 'A comprehensive, unhurried exam with labs, screening, and a personalized prevention plan.',
     tagline: 'Prevention, done properly.',
     icon: ClipboardCheck,
-    colors: ['#5ee7d3', '#d8b46a', '#5ee7d3'],
+    colors: ['#8fcfc4', '#d9bb85', '#8fcfc4'],
     description: [
       'Your annual physical is the most valuable hour you will spend on your health all year. We take the time to review your history, screen for what matters at your age and risk level, and set goals you can actually act on.',
       'Visits include a full examination, age-appropriate screening labs, vaccination review, and a written summary you can keep.'
@@ -136,7 +136,7 @@ export const services: Service[] = [
     short: 'Physician-supervised programs, including GLP-1 therapies when medically appropriate.',
     tagline: 'Lose weight with a doctor, not an app.',
     icon: Scale,
-    colors: ['#c084fc', '#d8b46a', '#5ee7d3'],
+    colors: ['#c9b8e0', '#d9bb85', '#8fcfc4'],
     featured: true,
     description: [
       'Sustainable weight loss is medical, not moral. Our program starts with a full metabolic assessment and builds a plan around your physiology, schedule, and goals.',
@@ -169,7 +169,7 @@ export const services: Service[] = [
     short: 'Pharmaceutical-grade hydration, vitamins, and nutrients delivered directly to your bloodstream.',
     tagline: 'Recharge at the source.',
     icon: Droplets,
-    colors: ['#38bdf8', '#5ee7d3', '#38bdf8'],
+    colors: ['#a9c8e6', '#8fcfc4', '#a9c8e6'],
     featured: true,
     description: [
       'IV therapy delivers fluids, vitamins, and minerals directly into your bloodstream, bypassing digestion so your body can use them right away.',
@@ -202,7 +202,7 @@ export const services: Service[] = [
     short: 'FDA-cleared body contouring that builds muscle and reduces fat in 30-minute sessions.',
     tagline: 'Build muscle. Burn fat. No downtime.',
     icon: Zap,
-    colors: ['#f59e0b', '#d8b46a', '#f97316'],
+    colors: ['#f0c48a', '#d9bb85', '#f0b393'],
     featured: true,
     description: [
       'Emsculpt Neo combines high-intensity focused electromagnetic energy with radiofrequency heat to strengthen muscle and reduce fat in the same treatment.',
@@ -235,7 +235,7 @@ export const services: Service[] = [
     short: 'Quick, physician-supervised injections to support energy, metabolism, and focus.',
     tagline: 'Five minutes. Real energy.',
     icon: Syringe,
-    colors: ['#f472b6', '#d8b46a', '#f472b6'],
+    colors: ['#e8b7c0', '#d9bb85', '#e8b7c0'],
     description: [
       'Vitamin B12 supports red blood cell production, nerve function, and energy metabolism. Injections bypass absorption issues that limit oral supplements.',
       'Shots take minutes and can be scheduled as a standalone visit or added to any appointment.'
@@ -267,7 +267,7 @@ export const services: Service[] = [
     short: 'Hands-on manipulation for back pain, joint issues, and mobility, without medication.',
     tagline: 'Relief you can feel, by hand.',
     icon: Hand,
-    colors: ['#5ee7d3', '#a3e635', '#5ee7d3'],
+    colors: ['#8fcfc4', '#c3d6a4', '#8fcfc4'],
     description: [
       'As a Doctor of Osteopathic Medicine, Dr. Katiraie is trained in osteopathic manipulative treatment, a hands-on approach that restores movement and relieves pain in muscles, joints, and connective tissue.',
       'It is a drug-free option for back and neck pain, headaches, joint stiffness, and recovery from injury, and it pairs naturally with your primary care.'
@@ -299,7 +299,7 @@ export const services: Service[] = [
     short: 'Specialized foot and ankle care, from diabetic foot exams to heel pain and nail issues.',
     tagline: 'Every step, cared for.',
     icon: Footprints,
-    colors: ['#d8b46a', '#f97316', '#d8b46a'],
+    colors: ['#d9bb85', '#f0b393', '#d9bb85'],
     description: [
       'Our podiatry service addresses foot and ankle conditions in the same office as your primary care, so nothing is lost between providers.',
       'Common visits include heel and arch pain, ingrown or fungal nails, diabetic foot exams, sports injuries, and custom orthotic evaluation.'
@@ -331,7 +331,7 @@ export const services: Service[] = [
     short: 'Thoughtful care for older adults: medications, memory, mobility, and independence.',
     tagline: 'Healthy, independent, and heard.',
     icon: HeartPulse,
-    colors: ['#a78bfa', '#d8b46a', '#a78bfa'],
+    colors: ['#c4b5e6', '#d9bb85', '#c4b5e6'],
     description: [
       'Older adults deserve a physician who understands how conditions and medications interact over time. Geriatric care at Beverly Hills Health focuses on keeping seniors healthy, safe, and independent.',
       'Visits include medication review, memory and mood screening, fall prevention, and coordination with family members and caregivers.'
@@ -363,7 +363,7 @@ export const services: Service[] = [
     short: 'Fast, thorough surgical clearance with labs, EKG, and documentation sent to your surgeon.',
     tagline: 'Cleared and confident before surgery.',
     icon: ShieldCheck,
-    colors: ['#5ee7d3', '#38bdf8', '#5ee7d3'],
+    colors: ['#8fcfc4', '#a9c8e6', '#8fcfc4'],
     description: [
       'Surgeons need a clear picture of your health before an operation. We provide efficient pre-operative evaluations that meet surgical and anesthesia requirements.',
       'Visits include a focused history and exam, required labs and EKG, risk assessment, and a signed clearance letter delivered directly to your surgical team.'
@@ -395,7 +395,7 @@ export const services: Service[] = [
     short: 'Video visits from anywhere in California, and in-home visits when you cannot come to us.',
     tagline: 'Care that comes to you.',
     icon: Video,
-    colors: ['#38bdf8', '#d8b46a', '#38bdf8'],
+    colors: ['#a9c8e6', '#d9bb85', '#a9c8e6'],
     description: [
       'Telehealth lets you see your own physician from home or work for follow-ups, medication questions, results review, and many acute concerns.',
       'For patients who cannot travel, Dr. Katiraie also provides house calls across the West Los Angeles area.'
@@ -427,7 +427,7 @@ export const services: Service[] = [
     short: 'Physician visits and coordination for residents of skilled nursing and assisted living facilities.',
     tagline: 'Continuity, wherever you live.',
     icon: Building2,
-    colors: ['#d8b46a', '#a78bfa', '#d8b46a'],
+    colors: ['#d9bb85', '#c4b5e6', '#d9bb85'],
     description: [
       'Beverly Hills Health provides attending physician services at skilled nursing facilities and assisted living communities, so residents receive consistent, attentive care.',
       'We coordinate closely with facility nursing staff, families, and specialists to prevent gaps in care and reduce avoidable hospital visits.'

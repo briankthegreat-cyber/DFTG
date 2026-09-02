@@ -3,68 +3,46 @@
 @theme {
   --animate-star-movement-bottom: star-movement-bottom linear infinite alternate;
   --animate-star-movement-top: star-movement-top linear infinite alternate;
-  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-display: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --color-ink: #06080f;
-  --color-surface: #0c1020;
-  --color-gold: #d8b46a;
-  --color-gold-light: #ecd6a2;
-  --color-teal: #5ee7d3;
-  --color-cream: #f3f1ea;
+  --color-cream: #faf6ee;
+  --color-sand: #f2eadb;
+  --color-ink: #1f1b16;
+  --color-gold: #b8934f;
+  --color-gold-light: #d9bb85;
+  --color-gold-pale: #f1e4c8;
+  --color-teal: #2a9d8f;
 
   @keyframes star-movement-bottom {
-    0% {
-      transform: translate(0%, 0%);
-      opacity: 1;
-    }
-    100% {
-      transform: translate(-100%, 0%);
-      opacity: 0;
-    }
+    0% { transform: translate(0%, 0%); opacity: 1; }
+    100% { transform: translate(-100%, 0%); opacity: 0; }
   }
   @keyframes star-movement-top {
-    0% {
-      transform: translate(0%, 0%);
-      opacity: 1;
-    }
-    100% {
-      transform: translate(100%, 0%);
-      opacity: 0;
-    }
+    0% { transform: translate(0%, 0%); opacity: 1; }
+    100% { transform: translate(100%, 0%); opacity: 0; }
   }
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
-html,
-body,
-#root {
-  margin: 0;
-  min-height: 100%;
-}
+html, body, #root { margin: 0; min-height: 100%; }
 
 body {
-  background: var(--color-ink);
-  color: var(--color-cream);
+  background: var(--color-cream);
+  color: var(--color-ink);
   overflow-x: hidden;
 }
 
-::selection {
-  background: rgba(216, 180, 106, 0.35);
-}
+::selection { background: rgba(184, 147, 79, 0.25); }
 
-.font-display {
-  font-family: var(--font-display);
-}
+.font-display { font-family: var(--font-display); }
 
 .eyebrow {
   font-size: 0.72rem;
@@ -74,10 +52,17 @@ body {
 }
 
 .glass {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(184, 147, 79, 0.22);
+  box-shadow: 0 20px 50px -30px rgba(120, 90, 30, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid rgba(184, 147, 79, 0.2);
+  box-shadow: 0 24px 60px -34px rgba(120, 90, 30, 0.35);
 }
 
 .grain::after {
@@ -85,28 +70,19 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.035;
+  border-radius: inherit;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.split-parent {
-  overflow: visible;
+.split-parent { overflow: visible; }
+
+/* ScrollStack overrides: the vendored component ships with large demo padding. */
+.scroll-stack-inner { padding: 1rem 0 10rem !important; min-height: 0 !important; }
+.scroll-stack-card { height: auto !important; min-height: 16rem; padding: 2rem !important; margin: 1.25rem 0 !important; }
+@media (min-width: 768px) {
+  .scroll-stack-card { min-height: 18rem; padding: 3rem !important; }
 }
 
-/* ScrollStack overrides: the vendored component ships with large padding meant for a demo page. */
-.scroll-stack-inner {
-  padding: 1rem 0 10rem !important;
-  min-height: 0 !important;
-}
-.scroll-stack-card {
-  height: auto !important;
-  min-height: 16rem;
-  padding: 2rem !important;
-  margin: 1.25rem 0 !important;
-}
-@media (min-width: 768px) {
-  .scroll-stack-card {
-    min-height: 18rem;
-    padding: 3rem !important;
-  }
-}
+/* ScrollVelocity ticker overrides */
+.ticker .scroller { font-family: var(--font-display) !important; font-weight: 500 !important; font-size: clamp(1.75rem, 4vw, 3.25rem) !important; line-height: 1.2 !important; filter: none !important; }

@@ -5,7 +5,7 @@ import { Plus } from 'lucide-react';
 export default function Faq({ items }: { items: { q: string; a: string }[] }) {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <div className="divide-y divide-white/10 rounded-3xl border border-white/10 bg-white/[0.03]">
+    <div className="divide-y divide-gold/15 card rounded-3xl">
       {items.map((item, i) => {
         const isOpen = open === i;
         return (
@@ -29,7 +29,7 @@ export default function Faq({ items }: { items: { q: string; a: string }[] }) {
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <p className="px-6 pb-6 text-sm leading-relaxed text-cream/65">{item.a}</p>
+                  <p className="px-6 pb-6 text-sm leading-relaxed text-ink/65">{item.a}</p>
                 </motion.div>
               )}
             </AnimatePresence>

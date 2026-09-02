@@ -35,11 +35,11 @@ function PromoToast() {
   if (!open) return null;
   return (
     <div className="fixed right-4 bottom-4 left-4 z-[900] sm:left-auto sm:max-w-sm md:right-8 md:bottom-8">
-      <div className="glass grain relative overflow-hidden rounded-2xl p-4 pr-10 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.8)]">
+      <div className="glass grain relative overflow-hidden rounded-2xl p-4 pr-10 shadow-[0_20px_60px_-20px_rgba(120,90,30,0.4)]">
         <button
           aria-label="Dismiss offer"
           onClick={() => setOpen(false)}
-          className="absolute top-3 right-3 rounded-full p-1 text-cream/60 transition hover:bg-white/10 hover:text-cream"
+          className="absolute top-3 right-3 rounded-full p-1 text-ink/60 transition hover:bg-gold/10 hover:text-ink"
         >
           <X className="h-4 w-4" />
         </button>
@@ -47,7 +47,7 @@ function PromoToast() {
           <Sparkles className="h-3 w-3" /> {promo.label}
         </p>
         <p className="font-display text-xl font-semibold leading-tight">{promo.title}</p>
-        <p className="mt-1 hidden text-xs text-cream/60 sm:block">{promo.body}</p>
+        <p className="mt-1 hidden text-xs text-ink/60 sm:block">{promo.body}</p>
         <Link to={promo.href} className="mt-3 inline-block text-xs font-semibold text-gold underline-offset-4 hover:underline">
           See the offer
         </Link>
@@ -58,27 +58,27 @@ function PromoToast() {
 
 function Footer() {
   return (
-    <footer className="relative mt-10 border-t border-white/10 bg-[#04060c]">
+    <footer className="relative mt-10 border-t border-gold/20 bg-sand">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:px-10">
         <div>
           <Link to="/" className="flex items-center gap-3">
             <img src="/bhh/logo.svg" alt="" className="h-10 w-10" />
             <span className="font-display text-2xl font-semibold">Beverly Hills Health</span>
           </Link>
-          <ShinyText text={brand.motto} className="mt-4 block text-sm tracking-[0.25em] uppercase" speed={4} />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream/55">{clinic.tagline}</p>
+          <ShinyText text={brand.motto} className="mt-4 block text-sm tracking-[0.25em] uppercase" speed={4} color="#b8934f" shineColor="#fff3d6" />
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink/55">{clinic.tagline}</p>
           <div className="mt-6 flex gap-3">
-            <a href={clinic.social.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="rounded-full border border-white/10 p-2 transition hover:border-gold hover:text-gold">
+            <a href={clinic.social.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="rounded-full border border-gold/20 p-2 transition hover:border-gold hover:text-gold">
               <Instagram className="h-4 w-4" />
             </a>
-            <a href={clinic.social.facebook} target="_blank" rel="noreferrer" aria-label="Facebook" className="rounded-full border border-white/10 p-2 transition hover:border-gold hover:text-gold">
+            <a href={clinic.social.facebook} target="_blank" rel="noreferrer" aria-label="Facebook" className="rounded-full border border-gold/20 p-2 transition hover:border-gold hover:text-gold">
               <Facebook className="h-4 w-4" />
             </a>
           </div>
         </div>
         <div>
           <p className="eyebrow mb-4">Services</p>
-          <ul className="space-y-2 text-sm text-cream/70">
+          <ul className="space-y-2 text-sm text-ink/70">
             {services.slice(0, 7).map(s => (
               <li key={s.slug}>
                 <Link to={`/services/${s.slug}`} className="transition hover:text-gold">
@@ -95,7 +95,7 @@ function Footer() {
         </div>
         <div>
           <p className="eyebrow mb-4">Clinic</p>
-          <ul className="space-y-2 text-sm text-cream/70">
+          <ul className="space-y-2 text-sm text-ink/70">
             <li><Link to="/about" className="transition hover:text-gold">About</Link></li>
             <li><Link to="/about#team" className="transition hover:text-gold">Our team</Link></li>
             <li><Link to="/contact" className="transition hover:text-gold">Contact</Link></li>
@@ -103,7 +103,7 @@ function Footer() {
             <li><a href={clinic.bookingHref} target="_blank" rel="noreferrer" className="transition hover:text-gold">Book online</a></li>
           </ul>
         </div>
-        <div className="space-y-4 text-sm text-cream/70">
+        <div className="space-y-4 text-sm text-ink/70">
           <p className="flex items-start gap-3">
             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
             <a href={clinic.address.mapsHref} target="_blank" rel="noreferrer" className="transition hover:text-gold">
@@ -126,7 +126,7 @@ function Footer() {
           </p>
         </div>
       </div>
-      <div className="border-t border-white/5 px-6 py-6 text-center text-xs text-cream/40">
+      <div className="border-t border-gold/10 px-6 py-6 text-center text-xs text-ink/40">
         © {new Date().getFullYear()} {clinic.legalName} All rights reserved. This site provides general information and is not a substitute for medical advice. If you are experiencing a medical emergency, call 911.
       </div>
     </footer>
@@ -136,19 +136,19 @@ function Footer() {
 export default function SiteLayout() {
   const { pathname } = useLocation();
   return (
-    <ClickSpark sparkColor="#d8b46a" sparkSize={10} sparkRadius={22} sparkCount={8} duration={450}>
+    <ClickSpark sparkColor="#b8934f" sparkSize={10} sparkRadius={22} sparkCount={8} duration={450}>
       <ScrollToTop />
       <header className="pointer-events-none fixed inset-x-0 top-0 z-[1000] flex h-0 justify-center">
         <div className="pointer-events-auto">
           <PillNav
-            logo="/bhh/logo.svg"
+            logo="/bhh/logo-cream.svg"
             logoAlt="Beverly Hills Health"
             items={navItems}
             activeHref={pathname}
-            baseColor="#0c1020"
-            pillColor="#d8b46a"
-            pillTextColor="#14110a"
-            hoveredPillTextColor="#14110a"
+            baseColor="#c9a86a"
+            pillColor="#fffaf0"
+            pillTextColor="#1f1b16"
+            hoveredPillTextColor="#1f1b16"
             initialLoadAnimation
           />
         </div>
