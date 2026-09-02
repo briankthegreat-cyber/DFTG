@@ -7,7 +7,6 @@ import ScrollVelocity from '@react-bits/TextAnimations/ScrollVelocity/ScrollVelo
 import Particles from '@react-bits/Backgrounds/Particles/Particles';
 import BlurText from '@react-bits/TextAnimations/BlurText/BlurText';
 import RotatingText from '@react-bits/TextAnimations/RotatingText/RotatingText';
-import ShinyText from '@react-bits/TextAnimations/ShinyText/ShinyText';
 import CountUp from '@react-bits/TextAnimations/CountUp/CountUp';
 import ScrollReveal from '@react-bits/TextAnimations/ScrollReveal/ScrollReveal';
 import GradientText from '@react-bits/TextAnimations/GradientText/GradientText';
@@ -17,6 +16,7 @@ import ElectricBorder from '@react-bits/Animations/ElectricBorder/ElectricBorder
 import { clinic, doctor, brand, featuredServices, services, pillars, steps, sampleTestimonials } from '../data';
 import { Button, Eyebrow, Reveal, Section, Title, Divider, FloatTitle, MagnetWrap, Parallax, Orb } from '../components/ui';
 import ServiceCard from '../components/ServiceCard';
+import Logo from '../components/Logo';
 
 const stats = [
   { value: doctor.years, suffix: '+', label: 'Years of physician experience' },
@@ -55,9 +55,10 @@ export default function Home() {
         <GradualBlur position="bottom" height="9rem" strength={2} divCount={6} curve="bezier" target="parent" />
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pt-32 pb-24 text-center">
-          <img src="/bhh/logo.svg" alt="" className="mb-6 h-16 w-16 drop-shadow-[0_8px_24px_rgba(184,147,79,0.45)]" />
-          <ShinyText text={brand.motto} className="mb-6 text-[0.7rem] font-semibold tracking-[0.4em] uppercase" speed={3} color="#b8934f" shineColor="#fff3d6" />
-          <Title text={brand.headline} as="h1" align="center" splitType="chars" className="max-w-4xl text-5xl md:text-7xl lg:text-[5.5rem]" />
+          <div className="mb-10 drop-shadow-[0_10px_30px_rgba(184,147,79,0.35)]">
+            <Logo size={84} />
+          </div>
+          <Title text={brand.headline} as="h1" align="center" splitType="chars" className="max-w-4xl text-4xl md:text-6xl lg:text-7xl" />
           <BlurText
             text={brand.mission}
             className="mt-8 max-w-2xl justify-center text-base leading-relaxed text-ink/70 md:text-lg"

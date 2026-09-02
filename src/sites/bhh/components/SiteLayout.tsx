@@ -3,8 +3,8 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Phone, MapPin, Clock, X, Sparkles, Instagram, Facebook } from 'lucide-react';
 import PillNav from '@react-bits/Components/PillNav/PillNav';
 import ClickSpark from '@react-bits/Animations/ClickSpark/ClickSpark';
-import ShinyText from '@react-bits/TextAnimations/ShinyText/ShinyText';
-import { clinic, services, promo, brand } from '../data';
+import { clinic, services, promo } from '../data';
+import Logo from './Logo';
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -61,11 +61,9 @@ function Footer() {
     <footer className="relative mt-10 border-t border-gold/20 bg-sand">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:px-10">
         <div>
-          <Link to="/" className="flex items-center gap-3">
-            <img src="/bhh/logo.svg" alt="" className="h-10 w-10" />
-            <span className="font-display text-2xl font-semibold">Beverly Hills Health</span>
+          <Link to="/" className="inline-block">
+            <Logo size={64} className="!items-start [&>span:first-of-type]:text-[2.8rem]" />
           </Link>
-          <ShinyText text={brand.motto} className="mt-4 block text-sm tracking-[0.25em] uppercase" speed={4} color="#b8934f" shineColor="#fff3d6" />
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink/55">{clinic.tagline}</p>
           <div className="mt-6 flex gap-3">
             <a href={clinic.social.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="rounded-full border border-gold/20 p-2 transition hover:border-gold hover:text-gold">
@@ -141,7 +139,7 @@ export default function SiteLayout() {
       <header className="pointer-events-none fixed inset-x-0 top-0 z-[1000] flex h-0 justify-center">
         <div className="pointer-events-auto">
           <PillNav
-            logo="/bhh/logo-cream.svg"
+            logo="/bhh/mark-cream.svg"
             logoAlt="Beverly Hills Health"
             items={navItems}
             activeHref={pathname}

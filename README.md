@@ -51,6 +51,7 @@ touching layout code.
 
 Before launch:
 
+- Save the original logo as `public/bhh/logo-full.png` (transparent background). The site uses it automatically; until then a vector recreation shows.
 - Replace `public/bhh/dr-katiraie.svg` with a real photo and add team photos (set `photo` on each
   entry in `team` in `data.ts`).
 - Replace the sample testimonials in `data.ts` with real, consented patient reviews, or embed the
