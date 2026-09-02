@@ -10,8 +10,10 @@ built here by adding pages under `src/pages/`.
 | --- | --- |
 | `src/react-bits/` | 171 React Bits components (TypeScript + Tailwind variant). See its README for licensing and how to update. |
 | `src/react-bits/COMPONENTS.md` | Index of every component with a one-line description. Useful when choosing effects. |
-| `src/pages/` | One file per page. `Home.tsx` is a demo page that proves the setup works. |
+| `src/sites/bhh/` | The Beverly Hills Health website: `data.ts` (all clinic copy, services, team, hours), `pages/`, `components/`. |
+| `src/pages/Home.tsx` | The original React Bits demo page, still reachable at `/demo`. |
 | `src/App.tsx` | Routes. Add a `<Route>` here for each new page. |
+| `public/bhh/` | Site assets: logo and the placeholder portrait. Drop real photos here. |
 | `src/index.css` | Global styles and the Tailwind import. |
 
 ## Running it on your computer
@@ -40,6 +42,20 @@ npm run typecheck  # TypeScript check
 Cloudflare Pages, or any static host. Because the site uses client-side routing, configure
 the host to serve `index.html` for unknown paths (all three hosts above have a one-line
 setting for this).
+
+## Beverly Hills Health site
+
+Routes: `/` home, `/services`, `/services/<slug>` (12 service pages), `/about` (with `#team`),
+`/contact`, `/careers`. All text lives in `src/sites/bhh/data.ts`, so copy edits never require
+touching layout code.
+
+Before launch:
+
+- Replace `public/bhh/dr-katiraie.svg` with a real photo and add team photos (set `photo` on each
+  entry in `team` in `data.ts`).
+- Replace the sample testimonials in `data.ts` with real, consented patient reviews, or embed the
+  Google reviews widget from the current site.
+- Confirm the booking link, hours, and the Emsculpt promo text in `data.ts`.
 
 ## Requesting a new website
 

@@ -1,9 +1,48 @@
 @import 'tailwindcss';
 
+@theme {
+  --animate-star-movement-bottom: star-movement-bottom linear infinite alternate;
+  --animate-star-movement-top: star-movement-top linear infinite alternate;
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --color-ink: #06080f;
+  --color-surface: #0c1020;
+  --color-gold: #d8b46a;
+  --color-gold-light: #ecd6a2;
+  --color-teal: #5ee7d3;
+  --color-cream: #f3f1ea;
+
+  @keyframes star-movement-bottom {
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-100%, 0%);
+      opacity: 0;
+    }
+  }
+  @keyframes star-movement-top {
+    0% {
+      transform: translate(0%, 0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(100%, 0%);
+      opacity: 0;
+    }
+  }
+}
+
 :root {
   color-scheme: dark;
-  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
@@ -14,6 +53,60 @@ body,
 }
 
 body {
-  background: #0b0b12;
-  color: #f5f5f7;
+  background: var(--color-ink);
+  color: var(--color-cream);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(216, 180, 106, 0.35);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.glass {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.split-parent {
+  overflow: visible;
+}
+
+/* ScrollStack overrides: the vendored component ships with large padding meant for a demo page. */
+.scroll-stack-inner {
+  padding: 1rem 0 10rem !important;
+  min-height: 0 !important;
+}
+.scroll-stack-card {
+  height: auto !important;
+  min-height: 16rem;
+  padding: 2rem !important;
+  margin: 1.25rem 0 !important;
+}
+@media (min-width: 768px) {
+  .scroll-stack-card {
+    min-height: 18rem;
+    padding: 3rem !important;
+  }
 }
