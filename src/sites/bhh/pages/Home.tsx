@@ -8,11 +8,10 @@ import Particles from '@react-bits/Backgrounds/Particles/Particles';
 import BlurText from '@react-bits/TextAnimations/BlurText/BlurText';
 import RotatingText from '@react-bits/TextAnimations/RotatingText/RotatingText';
 import CountUp from '@react-bits/TextAnimations/CountUp/CountUp';
-import ScrollReveal from '@react-bits/TextAnimations/ScrollReveal/ScrollReveal';
 import GradientText from '@react-bits/TextAnimations/GradientText/GradientText';
 import TiltedCard from '@react-bits/Components/TiltedCard/TiltedCard';
 import { clinic, doctor, brand, featuredServices, services, pillars, steps, sampleTestimonials } from '../data';
-import { Button, Eyebrow, Reveal, Section, Title, Divider, FloatTitle, Parallax, Orb, StackCards } from '../components/ui';
+import { Button, Eyebrow, Reveal, Section, Title, FloatTitle, Parallax, Orb, StackCards, Statement } from '../components/ui';
 import ServiceCard from '../components/ServiceCard';
 import Logo from '../components/Logo';
 
@@ -180,18 +179,9 @@ export default function Home() {
       {/* PHILOSOPHY */}
       <Section className="!py-20">
         <Orb className="top-0 -left-40" speed={0.3} />
-        <Divider />
-        <div className="mx-auto mt-16 max-w-4xl">
-          <ScrollReveal
-            enableBlur
-            baseOpacity={0.08}
-            baseRotation={2}
-            blurStrength={6}
-            textClassName="font-display text-3xl md:text-5xl leading-[1.25] font-medium text-ink"
-          >
-            Honest healthcare means telling you what you need, what you do not, and why. It means a doctor who reads your labs with you, answers the phone, and treats prevention as seriously as treatment.
-          </ScrollReveal>
-        </div>
+        <Reveal>
+          <Statement text="Honest healthcare means telling you what you *need*, what you do not, and *why*. It means a doctor who reads your labs *with you*, answers the phone, and treats prevention as seriously as treatment." />
+        </Reveal>
       </Section>
 
       {/* HOW IT WORKS */}

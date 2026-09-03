@@ -244,3 +244,96 @@ function StackCard({ index, total, progress, children }: { index: number; total:
     </div>
   );
 }
+
+/**
+ * A framed statement whose words reveal as the reader scrolls. Wrap a phrase in *asterisks* to
+ * set it in gold italic. Signed with a script signature to echo the logo lettering.
+ */
+export function Statement({
+  text,
+  eyebrow = 'Our promise',
+  signature = 'Michael Katiraie',
+  caption = 'Dr. Michael Katiraie, DO · Medical Director'
+}: {
+  text: string;
+  eyebrow?: string;
+  signature?: string;
+  caption?: string;
+}) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const words = el.querySelectorAll<HTMLElement>('.sw');
+    const tween = gsap.fromTo(
+      words,
+      { opacity: 0.12, filter: 'blur(4px)', y: 6 },
+      {
+        opacity: 1,
+        filter: 'blur(0px)',
+        y: 0,
+        stagger: 0.04,
+        ease: 'none',
+        scrollTrigger: { trigger: el, start: 'top 85%', end: 'bottom 45%', scrub: 0.6 }
+      }
+    );
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    };
+  }, [text]);
+
+  const words = tokenizeStatement(text);
+  return (
+    <div className="rounded-[34px] bg-gradient-to-br from-gold-light/70 via-gold-pale to-gold-light/70 p-[2px] shadow-[0_30px_80px_-40px_rgba(120,90,30,0.45)]">
+      <div className="grain relative overflow-hidden rounded-[32px] bg-white/85 px-6 py-14 text-center backdrop-blur md:px-16 md:py-20">
+        <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(217,187,133,0.45),rgba(217,187,133,0)_70%)] blur-2xl" />
+        <div className="pointer-events-none absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(217,187,133,0.4),rgba(217,187,133,0)_70%)] blur-2xl" />
+        <img src="/bhh/mark.png" alt="" className="mx-auto mb-5 h-14 w-14" />
+        <p className="eyebrow mb-8">{eyebrow}</p>
+        <p ref={ref} className="font-display mx-auto max-w-4xl text-[1.75rem] leading-[1.3] font-normal text-ink md:text-[2.6rem]">
+          {words.map((segs, i) => (
+            <span key={i} className="sw inline-block">
+              {segs.map((seg, j) => (
+                <span key={j} className={seg.gold ? 'italic text-gold' : undefined}>
+                  {seg.t}
+                </span>
+              ))}
+              &nbsp;
+            </span>
+          ))}
+        </p>
+        <div className="mx-auto mt-10 h-px w-16 bg-gradient-to-r from-transparent via-gold to-transparent" />
+        <p className="font-script mt-6 text-[2.6rem] leading-none text-gold md:text-[3.2rem]">{signature}</p>
+        <p className="mt-3 text-[0.68rem] tracking-[0.3em] text-ink/55 uppercase">{caption}</p>
+      </div>
+    </div>
+  );
+}
+
+/** Splits statement text into words; asterisks toggle gold styling and punctuation stays attached to its word. */
+function tokenizeStatement(text: string): { t: string; gold: boolean }[][] {
+  const words: { t: string; gold: boolean }[][] = [];
+  let word: { t: string; gold: boolean }[] = [];
+  let buf = '';
+  let gold = false;
+  const flush = () => {
+    if (buf) word.push({ t: buf, gold });
+    buf = '';
+  };
+  for (const ch of text) {
+    if (ch === '*') {
+      flush();
+      gold = !gold;
+    } else if (ch === ' ') {
+      flush();
+      if (word.length) words.push(word);
+      word = [];
+    } else {
+      buf += ch;
+    }
+  }
+  flush();
+  if (word.length) words.push(word);
+  return words;
+}

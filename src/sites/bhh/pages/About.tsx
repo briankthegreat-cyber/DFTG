@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import Particles from '@react-bits/Backgrounds/Particles/Particles';
-import ScrollReveal from '@react-bits/TextAnimations/ScrollReveal/ScrollReveal';
 import { brand, doctor, pillars, clinic } from '../data';
-import { Button, Eyebrow, Reveal, Section, Title, Divider, FloatTitle, Orb } from '../components/ui';
+import { Button, Eyebrow, Reveal, Section, Title, Divider, FloatTitle, Orb, Statement } from '../components/ui';
 import TeamGrid from '../components/TeamGrid';
 
 const milestones = [
@@ -31,11 +30,12 @@ export default function About() {
       </Section>
 
       <Section className="!pt-0">
-        <div className="mx-auto max-w-4xl">
-          <ScrollReveal enableBlur baseOpacity={0.08} baseRotation={2} blurStrength={6} textClassName="font-display text-3xl md:text-5xl leading-[1.25] font-medium text-ink">
-            We started Beverly Hills Health because good medicine had become hard to find: rushed visits, unreturned calls, and care split across strangers. We wanted one physician-led team that patients could actually reach.
-          </ScrollReveal>
-        </div>
+        <Reveal>
+          <Statement
+            eyebrow="Why we started"
+            text="We started Beverly Hills Health because good medicine had become hard to find: rushed visits, unreturned calls, and care split across strangers. We wanted *one physician-led team* that patients could *actually reach*."
+          />
+        </Reveal>
       </Section>
 
       <Section className="!pt-0">
