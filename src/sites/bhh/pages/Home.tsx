@@ -56,7 +56,7 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pt-32 pb-24 text-center">
           <div className="mb-10 drop-shadow-[0_10px_30px_rgba(184,147,79,0.35)]">
-            <Logo size={84} />
+            <Logo className="w-[min(100%,560px)]" />
           </div>
           <Title text={brand.headline} as="h1" align="center" splitType="chars" className="max-w-4xl text-4xl md:text-6xl lg:text-7xl" />
           <BlurText

@@ -5,9 +5,10 @@ import path from 'node:path';
 const dir = 'dist-preview';
 let html = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
 const read = f => fs.readFileSync(path.join(dir, f.replace(/^\.\//, '')), 'utf8');
-const svgToDataUri = f => 'data:image/svg+xml;base64,' + fs.readFileSync(path.join('public', f)).toString('base64');
+const mime = f => (f.endsWith('.png') ? 'image/png' : f.endsWith('.woff2') ? 'font/woff2' : 'image/svg+xml');
+const svgToDataUri = f => `data:${mime(f)};base64,` + fs.readFileSync(path.join('public', f)).toString('base64');
 
-const assets = ['bhh/logo.svg', 'bhh/logo-cream.svg', 'bhh/mark.svg', 'bhh/mark-cream.svg', 'bhh/dr-katiraie.svg'];
+const assets = ['bhh/logo-full.png', 'bhh/mark.png', 'bhh/dr-katiraie.svg', 'fonts/allison.woff2'];
 const swapAssets = s => assets.reduce((acc, f) => acc.split('/' + f).join(svgToDataUri(f)), s);
 
 let css = '';

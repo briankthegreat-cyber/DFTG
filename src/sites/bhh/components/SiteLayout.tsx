@@ -62,7 +62,7 @@ function Footer() {
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:px-10">
         <div>
           <Link to="/" className="inline-block">
-            <Logo size={64} className="!items-start [&>span:first-of-type]:text-[2.8rem]" />
+            <Logo className="!w-[280px]" />
           </Link>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink/55">{clinic.tagline}</p>
           <div className="mt-6 flex gap-3">
@@ -139,12 +139,12 @@ export default function SiteLayout() {
       <header className="pointer-events-none fixed inset-x-0 top-0 z-[1000] flex h-0 justify-center">
         <div className="pointer-events-auto">
           <PillNav
-            logo="/bhh/mark-cream.svg"
+            logo="/bhh/mark.png"
             logoAlt="Beverly Hills Health"
             items={navItems}
             activeHref={pathname}
-            baseColor="#c9a86a"
-            pillColor="#fffaf0"
+            baseColor="#fffaf0"
+            pillColor="#c9a86a"
             pillTextColor="#1f1b16"
             hoveredPillTextColor="#1f1b16"
             initialLoadAnimation
