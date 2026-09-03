@@ -1,6 +1,6 @@
 // Renders the full tour to a video by stepping the deterministic clock frame by frame.
 // Usage: node scripts/render-video.mjs [--fps 30] [--width 1280] [--height 720]
-//        [--out media/ibd-animation.mp4] [--ffmpeg /path/to/ffmpeg] [--start 0] [--duration N]
+//        [--out site/ibd-animation.mp4] [--ffmpeg /path/to/ffmpeg] [--start 0] [--duration N]
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -13,7 +13,7 @@ for (let i = 0; i < argv.length; i++) if (argv[i].startsWith('--')) args[argv[i]
 const fps = Number(args.fps ?? 30);
 const width = Number(args.width ?? 1280);
 const height = Number(args.height ?? 720);
-const out = args.out ?? 'media/ibd-animation.mp4';
+const out = args.out ?? 'site/ibd-animation.mp4';
 const ffmpeg = args.ffmpeg ?? process.env.FFMPEG ?? 'ffmpeg';
 const framesDir = args.frames ?? '.video-frames';
 const start = Number(args.start ?? 0);

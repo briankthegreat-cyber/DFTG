@@ -25,7 +25,7 @@ submucosa, muscle layers and outer coat (serosa). It morphs between healthy, ulc
 and Crohn's shapes.
 
 All patient-facing text lives in **`src/ibd/content.ts`**. Edit copy there; nothing else needs
-to change. The file has a "Reviewed by / Last reviewed" line at the top for clinician sign-off.
+to change. Fill in the `REVIEW` block (reviewed by, last reviewed) there once a clinician has signed off; it shows in the info panel.
 
 > The animation is general education. It is not a diagnostic tool and says so in the built-in
 > disclaimer (info button, top right). Dr. Katiraie should review the copy in `content.ts` before
@@ -52,7 +52,7 @@ npm run typecheck      # TypeScript check
 npm test               # unit tests (anatomy, condition model, timeline, copy)
 npm run test:e2e       # Playwright browser tests (WebGL renders, chapters switch, controls work)
 npm run screenshots    # one still per chapter into shots/
-npm run video          # render the whole tour to media/ibd-animation.mp4 (needs ffmpeg)
+npm run video          # render the whole tour to site/ibd-animation.mp4 (needs ffmpeg on PATH or FFMPEG=path)
 ```
 
 ## Putting it on the Don't Fret The Gut website
@@ -97,9 +97,9 @@ Notes:
 
 ### 3. Video fallback
 
-`media/ibd-animation.mp4` is the full tour rendered as a video (1280x720). Upload it as a normal
+`site/ibd-animation.mp4` is the full tour rendered as a video (1280x720). Upload it as a normal
 video block anywhere an iframe is not possible (social posts, the builder's video block, email).
-The same file, copied to `site/ibd-animation.mp4`, plays automatically inside the app for the rare
+The same file plays automatically inside the app for the rare
 browser without WebGL.
 
 ## Options (URL parameters)
@@ -158,7 +158,7 @@ ibd-3d-animation/
   scripts/                   make-preview (single file), screenshots, render-video
   test/unit, test/e2e        node:test unit tests, Playwright browser tests
   site/index.html            The built single file to host
-  media/                     Rendered video
+  site/ibd-animation.mp4     Rendered video (also the in-app fallback)
 ```
 
 ## Medical accuracy notes
