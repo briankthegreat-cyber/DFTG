@@ -68,6 +68,9 @@ export function Controls() {
 
   const label = ended ? UI_TEXT.replay : playing ? UI_TEXT.pause : UI_TEXT.play;
   const externalCta = /^https?:/i.test(options.link);
+  // Relative links leave an iframe embed and open the site in the top window.
+  const framed = typeof window !== 'undefined' && window.self !== window.top;
+  const ctaTarget = externalCta ? '_blank' : framed ? '_top' : undefined;
   return (
     <div className="pointer-events-auto mt-3" data-avoid-labels>
       <div className="flex items-center gap-2 sm:gap-3">
@@ -107,7 +110,7 @@ export function Controls() {
             <StarBorder
               as="a"
               href={options.link}
-              target={externalCta ? '_blank' : undefined}
+              target={ctaTarget}
               rel={externalCta ? 'noopener noreferrer' : undefined}
               color="var(--accent)"
               speed="7s"

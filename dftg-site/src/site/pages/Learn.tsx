@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { guides, learn, org } from '../data';
 import { ComparisonTable, ConditionCards, ExplainerTeaser } from '../components/sections';
 import { Display, Eyebrow, Reveal, Tag } from '../components/ui';
@@ -5,6 +7,20 @@ import { Display, Eyebrow, Reveal, Tag } from '../components/ui';
 const wrap = 'mx-auto max-w-[1400px] px-5 md:px-10';
 
 export default function Learn() {
+  const { hash } = useLocation();
+  const [openSlugs, setOpenSlugs] = useState<Set<string>>(() => new Set([guides[0].slug]));
+  // Deep links such as /learn#guide-<slug> open that guide instead of only scrolling to its heading.
+  useEffect(() => {
+    const slug = hash.startsWith('#guide-') ? hash.slice('#guide-'.length) : null;
+    if (slug && guides.some((g) => g.slug === slug)) setOpenSlugs((prev) => new Set(prev).add(slug));
+  }, [hash]);
+  const toggle = (slug: string, open: boolean) =>
+    setOpenSlugs((prev) => {
+      const next = new Set(prev);
+      if (open) next.add(slug);
+      else next.delete(slug);
+      return next;
+    });
   return (
     <>
       <section className={`${wrap} pt-14 md:pt-20`}>
@@ -32,8 +48,8 @@ export default function Learn() {
         <Eyebrow>Guides</Eyebrow>
         <Display lead="Short reads for" accent="real questions." size="lg" className="mt-3" />
         <div className="mt-10 divide-y divide-line border-y border-line">
-          {guides.map((g, i) => (
-            <details key={g.slug} id={`guide-${g.slug}`} open={i === 0} className="group scroll-mt-28 py-6">
+          {guides.map((g) => (
+            <details key={g.slug} id={`guide-${g.slug}`} open={openSlugs.has(g.slug)} onToggle={(e) => toggle(g.slug, e.currentTarget.open)} className="group scroll-mt-28 py-6">
               <summary className="flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-4 [&::-webkit-details-marker]:hidden">
                 <span className="flex flex-wrap items-center gap-3">
                   <Tag>{g.tag}</Tag>

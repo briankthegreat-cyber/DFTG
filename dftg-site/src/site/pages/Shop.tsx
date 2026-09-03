@@ -21,14 +21,14 @@ export default function Shop() {
         </div>
         <div>
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line pb-3">
-            <div role="tablist" aria-label="Category" className="flex flex-wrap gap-5">
+            <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-5">
               {shop.categories.map((c) => (
-                <button key={c} role="tab" type="button" aria-selected={category === c} onClick={() => setCategory(c)} className={`text-sm transition-colors ${category === c ? 'text-forest underline underline-offset-8' : 'text-muted hover:text-forest'}`}>
+                <button key={c} type="button" aria-pressed={category === c} onClick={() => setCategory(c)} className={`text-sm transition-colors ${category === c ? 'text-forest underline underline-offset-8' : 'text-muted hover:text-forest'}`}>
                   {c}
                 </button>
               ))}
             </div>
-            <span className="text-[0.66rem] tracking-[0.2em] text-muted uppercase">{products.length} pieces</span>
+            <span className="text-[0.66rem] tracking-[0.2em] text-muted uppercase" aria-live="polite">{products.length} pieces</span>
           </div>
           <div className="mt-8">
             <ProductGrid products={products} columns="grid-cols-2" />

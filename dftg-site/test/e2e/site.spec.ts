@@ -27,6 +27,6 @@ test('shop bag counts items and donate tiers switch', async ({ page }) => {
   await page.getByRole('button', { name: /Add Washed Script Tee/ }).click();
   await expect(page.getByRole('link', { name: /^Bag/ })).toContainText('1');
   await page.goto('/get-involved');
-  await page.getByRole('radio', { name: '$100' }).click();
+  await page.getByText('$100', { exact: true }).click();
   await expect(page.getByRole('button', { name: 'Donate $100' })).toBeVisible();
 });

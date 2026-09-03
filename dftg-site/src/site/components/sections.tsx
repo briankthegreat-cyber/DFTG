@@ -4,7 +4,7 @@ import { Link, useHref } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight, Plus } from 'lucide-react';
 import { community, comparison, explainerSection, getInvolved, guides, learn, newsletter, org, shop } from '../data';
 import type { Guide, Product } from '../data';
-import { ButtonLink, Display, Eyebrow, Reveal, Tag, TextLink } from './ui';
+import { ButtonLink, Display, Eyebrow, Reveal, Tag } from './ui';
 import { ProductArt } from './ui';
 import { useBag } from './SiteLayout';
 
@@ -228,21 +228,18 @@ export function DonateBox({ id }: { id?: string }) {
         </div>
         <div className="self-center bg-ivory p-7">
           <p className="eyebrow">{d.label}</p>
-          <div role="radiogroup" aria-label="Gift amount" className="mt-4 grid grid-cols-4 gap-2">
+          <fieldset className="mt-4 grid grid-cols-4 gap-2">
+            <legend className="sr-only">Gift amount</legend>
             {d.tiers.map((t) => (
-              <button
+              <label
                 key={t}
-                type="button"
-                role="radio"
-                aria-checked={tier === t}
-                aria-label={`$${t}`}
-                onClick={() => setTier(t)}
-                className={`border py-3.5 text-[0.95rem] font-medium transition-colors ${tier === t ? 'border-forest bg-forest text-ivory' : 'border-line text-forest hover:border-forest'}`}
+                className={`cursor-pointer border py-3.5 text-center text-[0.95rem] font-medium transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-forest ${tier === t ? 'border-forest bg-forest text-ivory' : 'border-line text-forest hover:border-forest'}`}
               >
+                <input type="radio" name="gift-amount" value={t} checked={tier === t} onChange={() => setTier(t)} className="sr-only" />
                 ${t}
-              </button>
+              </label>
             ))}
-          </div>
+          </fieldset>
           <button type="button" onClick={() => setThanks(true)} className="mt-4 flex w-full items-center justify-between bg-forest px-5 py-4 text-sm font-semibold text-ivory transition-colors hover:bg-forest-deep">
             Donate ${tier}
             <ArrowUpRight className="h-4 w-4" />
@@ -337,4 +334,3 @@ export function useExplainerCta(): { link: string; cta: string } {
   return { link, cta: 'Get involved' };
 }
 
-export { TextLink };

@@ -75,7 +75,8 @@ export const QUALITY = Object.freeze({
   },
 });
 
-const DEFAULT_LINK_URL = 'https://dont-fret-the-gut.bkthegreat.chatgpt.site/';
+// embed.html sits next to the site's index.html, so './' is the foundation site wherever it is hosted.
+const DEFAULT_LINK_URL = './';
 const DEFAULT_CTA = 'Learn more';
 const MAX_CTA_LENGTH = 40;
 
