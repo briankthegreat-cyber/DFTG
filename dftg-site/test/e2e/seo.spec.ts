@@ -7,7 +7,8 @@ test('every page has a unique title, a description, a canonical link, one h1 and
   const descriptions = new Set<string>();
   for (const route of routes) {
     await page.goto(route);
-    await page.waitForFunction(() => document.querySelector('link[rel="canonical"]') !== null);
+    // The prerendered HTML already carries a canonical link, so wait for the app itself to mount.
+    await page.locator('#root h1').first().waitFor({ timeout: 30_000 });
     const title = await page.title();
     const description = await page.locator('meta[name="description"]').getAttribute('content');
     const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
