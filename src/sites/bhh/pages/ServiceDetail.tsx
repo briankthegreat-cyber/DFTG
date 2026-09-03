@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Check, CalendarCheck, Phone } from 'lucide-react';
 import Aurora from '@react-bits/Backgrounds/Aurora/Aurora';
-import ElectricBorder from '@react-bits/Animations/ElectricBorder/ElectricBorder';
 import { services, clinic } from '../data';
 import { Button, Eyebrow, Reveal, Section, Title, FloatTitle, Orb } from '../components/ui';
 import ServiceCard from '../components/ServiceCard';
@@ -94,7 +93,7 @@ export default function ServiceDetail() {
       </Section>
 
       <Section className="!pt-0">
-        <ElectricBorder color="#c9a86a" speed={0.8} chaos={0.4} borderRadius={32}>
+        <div className="rounded-[34px] bg-gradient-to-br from-gold-light/70 via-gold-pale to-gold-light/70 p-[2px] shadow-[0_30px_80px_-40px_rgba(120,90,30,0.45)]">
           <div className="grain relative flex flex-col items-start gap-6 overflow-hidden rounded-[32px] bg-white p-8 md:flex-row md:items-center md:justify-between md:p-12">
             <div>
               <p className="font-display text-3xl font-semibold md:text-4xl">Ready to get started with {service.name.toLowerCase()}?</p>
@@ -104,7 +103,7 @@ export default function ServiceDetail() {
               <CalendarCheck className="h-4 w-4" /> Book an appointment
             </Button>
           </div>
-        </ElectricBorder>
+        </div>
       </Section>
 
       <Section className="!pt-0">

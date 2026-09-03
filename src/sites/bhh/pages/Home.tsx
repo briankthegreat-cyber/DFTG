@@ -10,11 +10,9 @@ import RotatingText from '@react-bits/TextAnimations/RotatingText/RotatingText';
 import CountUp from '@react-bits/TextAnimations/CountUp/CountUp';
 import ScrollReveal from '@react-bits/TextAnimations/ScrollReveal/ScrollReveal';
 import GradientText from '@react-bits/TextAnimations/GradientText/GradientText';
-import ScrollStack, { ScrollStackItem } from '@react-bits/Components/ScrollStack/ScrollStack';
 import TiltedCard from '@react-bits/Components/TiltedCard/TiltedCard';
-import ElectricBorder from '@react-bits/Animations/ElectricBorder/ElectricBorder';
 import { clinic, doctor, brand, featuredServices, services, pillars, steps, sampleTestimonials } from '../data';
-import { Button, Eyebrow, Reveal, Section, Title, Divider, FloatTitle, MagnetWrap, Parallax, Orb } from '../components/ui';
+import { Button, Eyebrow, Reveal, Section, Title, Divider, FloatTitle, Parallax, Orb, StackCards } from '../components/ui';
 import ServiceCard from '../components/ServiceCard';
 import Logo from '../components/Logo';
 
@@ -52,9 +50,9 @@ export default function Home() {
             className="h-full w-full"
           />
         </div>
-        <GradualBlur position="bottom" height="9rem" strength={2} divCount={6} curve="bezier" target="parent" />
+        <GradualBlur position="bottom" height="4rem" strength={1.5} divCount={5} curve="bezier" target="parent" zIndex={1} />
 
-        <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pt-32 pb-24 text-center">
+        <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pt-32 pb-32 text-center">
           <div className="mb-10 drop-shadow-[0_10px_30px_rgba(184,147,79,0.35)]">
             <Logo className="w-[min(100%,560px)]" />
           </div>
@@ -81,16 +79,12 @@ export default function Home() {
             />
           </div>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <MagnetWrap>
-              <Button to={clinic.bookingHref}>
-                <CalendarCheck className="h-4 w-4" /> Book an appointment
-              </Button>
-            </MagnetWrap>
-            <MagnetWrap>
-              <Button to={clinic.phoneHref} variant="ghost">
-                <Phone className="h-4 w-4" /> {clinic.phone}
-              </Button>
-            </MagnetWrap>
+            <Button to={clinic.bookingHref}>
+              <CalendarCheck className="h-4 w-4" /> Book an appointment
+            </Button>
+            <Button to={clinic.phoneHref} variant="ghost">
+              <Phone className="h-4 w-4" /> {clinic.phone}
+            </Button>
           </div>
         </div>
         <a href="#intro" className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-ink/50 transition hover:text-gold" aria-label="Scroll">
@@ -207,22 +201,17 @@ export default function Home() {
           <FloatTitle text="Simple from the first call." align="center" className="text-4xl md:text-6xl" />
         </div>
         <div className="mt-10">
-          <ScrollStack useWindowScroll itemDistance={80} itemStackDistance={24} baseScale={0.88} stackPosition="18%" scaleEndPosition="8%">
+          <StackCards>
             {steps.map(step => (
-              <ScrollStackItem
-                key={step.n}
-                itemClassName="!bg-white !border !border-gold/20 !shadow-[0_30px_80px_-30px_rgba(120,90,30,0.35)]"
-              >
-                <div className="flex h-full flex-col justify-between gap-6 md:flex-row md:items-center">
-                  <div>
-                    <span className="font-display text-7xl text-gold/40">{step.n}</span>
-                    <h3 className="font-display mt-2 text-3xl font-semibold md:text-4xl">{step.title}</h3>
-                  </div>
-                  <p className="max-w-md text-base leading-relaxed text-ink/65">{step.body}</p>
+              <div key={step.n} className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
+                <div>
+                  <span className="font-display text-7xl text-gold/40">{step.n}</span>
+                  <h3 className="font-display mt-2 text-3xl font-semibold md:text-4xl">{step.title}</h3>
                 </div>
-              </ScrollStackItem>
+                <p className="max-w-md text-base leading-relaxed text-ink/65">{step.body}</p>
+              </div>
             ))}
-          </ScrollStack>
+          </StackCards>
         </div>
       </Section>
 
@@ -298,7 +287,7 @@ export default function Home() {
 
       {/* VISIT / CTA */}
       <Section>
-        <ElectricBorder color="#c9a86a" speed={0.8} chaos={0.4} borderRadius={32}>
+        <div className="rounded-[34px] bg-gradient-to-br from-gold-light/70 via-gold-pale to-gold-light/70 p-[2px] shadow-[0_30px_80px_-40px_rgba(120,90,30,0.45)]">
           <div className="grain relative grid gap-10 overflow-hidden rounded-[32px] bg-white p-8 md:grid-cols-[1.2fr_1fr] md:p-14">
             <div>
               <Eyebrow>Visit us</Eyebrow>
@@ -346,7 +335,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </ElectricBorder>
+        </div>
       </Section>
     </main>
   );

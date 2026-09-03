@@ -86,13 +86,6 @@ body {
 
 .split-parent { overflow: visible; }
 
-/* ScrollStack overrides: the vendored component ships with large demo padding. */
-.scroll-stack-inner { padding: 1rem 0 10rem !important; min-height: 0 !important; }
-.scroll-stack-card { height: auto !important; min-height: 16rem; padding: 2rem !important; margin: 1.25rem 0 !important; }
-@media (min-width: 768px) {
-  .scroll-stack-card { min-height: 18rem; padding: 3rem !important; }
-}
-
 /* ScrollVelocity ticker overrides */
 .ticker .scroller { font-family: var(--font-display) !important; font-weight: 500 !important; font-size: clamp(1.75rem, 4vw, 3.25rem) !important; line-height: 1.2 !important; filter: none !important; }
 

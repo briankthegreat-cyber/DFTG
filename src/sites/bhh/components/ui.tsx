@@ -7,7 +7,7 @@ import StarBorder from '@react-bits/Animations/StarBorder/StarBorder';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Magnet from '@react-bits/Animations/Magnet/Magnet';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useScroll, useTransform, type MotionValue } from 'motion/react';
 import { useEffect, useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -206,5 +206,41 @@ export function Orb({ className = '', speed = 0.4 }: { className?: string; speed
     <Parallax speed={speed} className={`pointer-events-none absolute -z-10 ${className}`}>
       <div className="h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(217,187,133,0.55),rgba(217,187,133,0)_70%)] blur-2xl md:h-[28rem] md:w-[28rem]" />
     </Parallax>
+  );
+}
+
+/**
+ * Cards that stack as the page scrolls. Each card sticks below the top of the viewport while the
+ * next one slides over it, and earlier cards ease back in scale. Native scrolling and GPU
+ * transforms only, so it stays smooth.
+ */
+export function StackCards({ children, className = '' }: { children: ReactNode[]; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
+  const total = children.length;
+  return (
+    <div ref={ref} className={className}>
+      {children.map((child, i) => (
+        <StackCard key={i} index={i} total={total} progress={scrollYProgress}>
+          {child}
+        </StackCard>
+      ))}
+    </div>
+  );
+}
+
+function StackCard({ index, total, progress, children }: { index: number; total: number; progress: MotionValue<number>; children: ReactNode }) {
+  const start = index / total;
+  const scale = useTransform(progress, [start, 1], [1, 1 - (total - index - 1) * 0.045]);
+  const last = index === total - 1;
+  return (
+    <div className={`sticky flex items-start justify-center ${last ? 'h-auto pb-6' : 'h-[62vh] md:h-[58vh]'}`} style={{ top: `calc(14vh + ${index * 22}px)` }}>
+      <motion.div
+        style={{ scale, transformOrigin: 'top center' }}
+        className="card grain relative w-full rounded-[32px] p-8 will-change-transform md:p-12"
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 }
