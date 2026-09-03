@@ -19,13 +19,13 @@ test('Understand IBD page embeds the 3D explainer and the written guide', async 
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Inflammation');
   await page.waitForSelector('canvas', { timeout: 60_000 });
   await expect(page.getByRole('heading', { name: 'Crohn’s disease', exact: true })).toBeVisible();
-  await expect(page.getByText('When to seek care right away')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'When to seek care right away' })).toBeVisible();
 });
 
 test('shop bag counts items and donate tiers switch', async ({ page }) => {
   await page.goto('/shop');
   await page.getByRole('button', { name: /Add Washed Script Tee/ }).click();
-  await expect(page.getByLabel('Bag')).toContainText('1');
+  await expect(page.getByRole('link', { name: /^Bag/ })).toContainText('1');
   await page.goto('/get-involved');
   await page.getByRole('radio', { name: '$100' }).click();
   await expect(page.getByRole('button', { name: 'Donate $100' })).toBeVisible();
