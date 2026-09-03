@@ -75,7 +75,9 @@ export const QUALITY = Object.freeze({
   },
 });
 
-const DEFAULT_BOOKING_URL = 'https://beverlyhills-health.com/';
+const DEFAULT_LINK_URL = 'https://dont-fret-the-gut.bkthegreat.chatgpt.site/';
+const DEFAULT_CTA = 'Learn more';
+const MAX_CTA_LENGTH = 40;
 
 /** Parses `?key=value` options. Everything has a safe default. */
 export type ThemeKey = 'dark' | 'light';
@@ -91,7 +93,10 @@ export interface Options {
   loop: boolean;
   chapter: string | null;
   t: number | null;
-  book: string;
+  /** Destination of the call-to-action button (https only). */
+  link: string;
+  /** Label of the call-to-action button (plain text, short). */
+  cta: string;
 }
 
 export function readOptions(search = ''): Options {
@@ -108,8 +113,10 @@ export function readOptions(search = ''): Options {
   const theme: ThemeKey = params.get('theme') === 'light' ? 'light' : 'dark';
   const q = params.get('quality');
   const quality: QualityKey | null = q === 'high' || q === 'low' ? q : null;
-  let book = params.get('book') || DEFAULT_BOOKING_URL;
-  if (!/^https:\/\//i.test(book)) book = DEFAULT_BOOKING_URL;
+  let link = params.get('link') || DEFAULT_LINK_URL;
+  if (!/^https:\/\//i.test(link)) link = DEFAULT_LINK_URL;
+  const ctaRaw = (params.get('cta') || '').replace(/[<>]/g, '').trim();
+  const cta = ctaRaw && ctaRaw.length <= MAX_CTA_LENGTH ? ctaRaw : DEFAULT_CTA;
   return {
     theme,
     quality,
@@ -121,7 +128,8 @@ export function readOptions(search = ''): Options {
     loop: bool('loop', false),
     chapter: params.get('chapter'),
     t: num('t', null),
-    book,
+    link,
+    cta,
   };
 }
 

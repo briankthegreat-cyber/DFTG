@@ -1,11 +1,11 @@
-import { CHAPTER_CONTENT, DISCLAIMER } from '@/ibd/content.ts';
+import { CHAPTER_CONTENT, DISCLAIMER, UI_TEXT } from '@/ibd/content.ts';
 import { CHAPTERS } from '@/ibd/timeline.ts';
 
 /** Shown when WebGL is unavailable: a video of the tour, or the written summary. */
 export function Fallback({ message }: { message: string }) {
   return (
     <div className="h-full w-full overflow-auto bg-(--color-stage-900) p-5 text-(--text)">
-      <p className="eyebrow">Don’t Fret The Gut</p>
+      <p className="eyebrow">{UI_TEXT.series}</p>
       <h1 className="font-display mt-1 text-2xl">Inside the gut: understanding IBD</h1>
       <p className="mt-2 text-sm text-(--muted)">{message} Here is the same tour as a video, and in writing below.</p>
       <video className="mt-4 w-full max-w-3xl rounded-xl" controls muted playsInline poster="./poster.jpg" preload="metadata">

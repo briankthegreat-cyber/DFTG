@@ -1,8 +1,9 @@
 # Inside the Gut: Understanding IBD (3D explainer)
 
-An interactive 3D animation for the **Don't Fret The Gut** website that walks patients through
-inflammatory bowel disease in six short chapters: a healthy gut, what IBD is, Crohn's disease,
-ulcerative colitis, flares and remission, and next steps.
+An interactive 3D animation for the **Don't Fret The Gut Foundation** website, a non-profit
+education project about inflammatory bowel disease. It walks visitors through IBD in six short
+chapters: a healthy gut, what IBD is, Crohn's disease, ulcerative colitis, flares and remission,
+and next steps. There is nothing to buy or book; the only button links to the foundation.
 
 It is built the same way as the Beverly Hills Health website workspace: **Vite + React 19 +
 TypeScript + Tailwind CSS v4**, with **React Bits** components vendored under `src/react-bits/`
@@ -18,7 +19,7 @@ in `site/index.html` that can be hosted anywhere and embedded in the site builde
 | 3. Crohn's disease | Patchy red "skip lesions" appear, most strongly at the terminal ileum, with healthy bowel between. Walls thicken, creeping fat appears on one side, and the inset shows inflammation through the full wall with a narrowed channel. The rectum stays spared. |
 | 4. Ulcerative colitis | A continuous red front starts at the rectum and climbs the colon. Ulcers pit the lining and the haustra flatten. Stage labels appear as the front passes proctitis, left-sided and extensive colitis. The inset shows only the inner lining involved. |
 | 5. Flares and remission | The inflamed colon pulses (flare), then calms and returns toward healthy pink (remission). Both directions are shown as reversible. |
-| 6. Don't fret the gut | Calm overview with a plain-language call to action and the booking button. |
+| 6. Don't fret the gut | Calm overview with plain-language next steps (talk with a doctor, when to seek urgent care, you are not alone) and a "Learn more" link back to the foundation. |
 
 The bowel-wall inset (bottom right) is a cross-section with four layers: inner lining (mucosa),
 submucosa, muscle layers and outer coat (serosa). It morphs between healthy, ulcerative colitis
@@ -115,7 +116,8 @@ Add these to the iframe `src`:
 | `?inset=0` | Hide the bowel-wall inset |
 | `?ui=0` | Hide all controls and text (3D only) |
 | `?quality=low` | Force the lighter render path (no bloom or shadows) |
-| `?book=https://...` | Booking link for the "Book a visit" button (https only) |
+| `?link=https://...` | Where the "Learn more" button goes (https only). Default: the foundation website. Point it at the Instagram page with `?link=https://www.instagram.com/<handle>/&cta=Follow%20on%20Instagram` |
+| `?cta=...` | Label of that button (plain text, up to 40 characters). Default: "Learn more" |
 
 Example: `.../site/?theme=light&chapter=crohns`
 

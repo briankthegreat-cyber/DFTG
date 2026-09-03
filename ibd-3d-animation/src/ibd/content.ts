@@ -112,14 +112,15 @@ export const CHAPTER_CONTENT: Readonly<Record<ChapterId, ChapterContent>> = Obje
     title: 'Don’t fret the gut',
     body:
       'Ongoing diarrhea, belly pain, blood in the stool, unexplained weight loss or constant tiredness deserve a ' +
-      'proper look. Simple blood and stool tests are usually the first step, and we guide you from there. Some ' +
-      'symptoms need care right away: heavy bleeding, severe belly pain, a high fever, or not being able to keep ' +
-      'fluids down. Call us or go to an emergency room.',
+      'proper look. Talk with a doctor; simple blood and stool tests are usually the first step. Some symptoms ' +
+      'need care right away: heavy bleeding, severe belly pain, a high fever, or not being able to keep fluids ' +
+      'down. Go to an emergency room for those. And remember: millions of people live full lives with IBD, and ' +
+      'you are not alone.',
     facts: [
-      'Start with a visit and simple lab tests',
-      'Finding it early gives you more options',
-      'We coordinate GI specialist care when needed',
+      'Talk with a doctor; simple tests come first',
       'Urgent: heavy bleeding, severe pain or high fever',
+      'Finding it early gives you more options',
+      'Learn, share and support people living with IBD',
     ],
   },
 });
@@ -151,8 +152,8 @@ export const ALL_LABELS: readonly HotspotLabel[] = Object.freeze([
 ]);
 
 export const UI_TEXT = Object.freeze({
-  brand: 'Beverly Hills Health',
-  series: 'Don’t Fret The Gut',
+  brand: 'Don’t Fret The Gut Foundation',
+  series: 'Don’t Fret The Gut Foundation',
   kicker: 'Inside the gut: understanding IBD',
   viewNote: 'Front view, as if facing the patient',
   insetTitle: 'Bowel wall, cut across',
@@ -162,5 +163,5 @@ export const UI_TEXT = Object.freeze({
   replay: 'Replay',
   reduceMotion: 'Reduce motion',
   fullscreen: 'Full screen',
-  bookCta: 'Book a visit',
+  learnCta: 'Learn more',
 });

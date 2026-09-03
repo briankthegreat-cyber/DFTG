@@ -105,7 +105,7 @@ export function Controls() {
           <span className="hidden sm:inline-block">
             <StarBorder
               as="a"
-              href={options.book}
+              href={options.link}
               target="_blank"
               rel="noopener noreferrer"
               color="var(--accent)"
@@ -116,7 +116,7 @@ export function Controls() {
               textColor="var(--text)"
               borderColor="var(--border)"
             >
-              <span className="px-1">{UI_TEXT.bookCta}</span>
+              <span className="px-1">{options.cta}</span>
             </StarBorder>
           </span>
         </div>
