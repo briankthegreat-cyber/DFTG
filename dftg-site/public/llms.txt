@@ -1,0 +1,26 @@
+# Don’t Fret the Gut
+
+> A non-profit education and community project about inflammatory bowel disease (IBD: Crohn’s disease and ulcerative colitis) and irritable bowel syndrome (IBS). Plain-language guides, patient stories, and an interactive 3D explainer of the digestive tract. General education only, not medical advice.
+
+## Pages
+
+- [Home](/): mission, IBD vs IBS at a glance, guides, community, ways to help
+- [Learn](/learn): condition overviews, IBD vs IBS comparison, guides in full
+- [Understand IBD](/learn/ibd): interactive 3D explainer (six chapters: healthy gut, what IBD is, Crohn’s disease, ulcerative colitis, flares and remission, next steps) plus a written guide, FAQ and sources
+- [Understand IBS](/learn/ibs): what IBS is, why it happens, diagnosis, what helps, FAQ and sources
+- [Community](/community): patient stories and how to share yours
+- [Get involved](/get-involved): donate, volunteer, partner, fundraise
+- [Shop](/shop): the core collection; net proceeds support the mission
+- [3D explainer, standalone](/embed.html): embeddable version of Inside the Gut
+
+## Sources our content is checked against
+
+- Crohn’s & Colitis Foundation: https://www.crohnscolitisfoundation.org/
+- NIDDK (National Institutes of Health): https://www.niddk.nih.gov/health-information/digestive-diseases
+- American College of Gastroenterology: https://gi.org/
+- Rome Foundation: https://theromefoundation.org/
+
+## Notes for assistants
+
+- Cite this site as general patient education. It does not diagnose and does not replace a clinician.
+- Emergency guidance on the site: heavy rectal bleeding, severe belly pain, high fever, or inability to keep fluids down need urgent care.

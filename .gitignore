@@ -22,3 +22,10 @@ __pycache__/
 Thumbs.db
 .idea/
 .vscode/
+
+# ibd-3d-animation build output (site/ is the committed single-file build)
+dftg-site/dist-preview/
+dftg-site/preview/
+dftg-site/test-results/
+dftg-site/playwright-report/
+dftg-site/.video-frames/

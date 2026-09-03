@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://briankthegreat-cyber.github.io/DFTG/sitemap.xml

@@ -1,0 +1,32 @@
+/* Styles used only by the 3D explainer overlay (labels, progress, glass panels). */
+
+/* Anchored anatomy labels */
+.ibd-label-layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.ibd-leaders { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ibd-leader { stroke: var(--accent); stroke-width: 1.2; }
+.ibd-leader-dot { fill: var(--accent); stroke: var(--surface-strong); stroke-width: 2; }
+.ibd-label {
+  position: absolute;
+  top: 0; left: 0;
+  max-width: 220px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--label-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 500;
+  white-space: nowrap;
+  will-change: transform, opacity;
+  transition: opacity 120ms linear;
+}
+
+/* Chapter progress */
+.progress-track { display: grid; gap: 4px; grid-auto-flow: column; }
+.progress-seg { position: relative; height: 4px; border-radius: 999px; background: color-mix(in srgb, var(--text) 18%, transparent); overflow: hidden; }
+.progress-seg > i { position: absolute; inset: 0; transform-origin: left; transform: scaleX(0); background: var(--accent); border-radius: inherit; }
+
+/* Text reveal helpers used by the React Bits SplitText */
+.split-parent { overflow: visible; }
+
