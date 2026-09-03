@@ -1,4 +1,8 @@
-import { getInvolved, org } from '../data';
+import { useMemo } from 'react';
+import { getInvolved, org, related, seo } from '../data';
+import { breadcrumbSchema, useSeo } from '../seo';
+import { Breadcrumbs } from '../components/Breadcrumbs';
+import { RelatedLinks } from '../components/RelatedLinks';
 import { DonateBox, WaysGrid } from '../components/sections';
 import { Display, Eyebrow } from '../components/ui';
 
@@ -11,9 +15,13 @@ const detail = [
 ];
 
 export default function GetInvolved() {
+  const crumbs = useMemo(() => [{ name: 'Home', path: '/' }, { name: 'Get involved', path: '/get-involved' }], []);
+  const jsonLd = useMemo(() => [breadcrumbSchema(crumbs)], [crumbs]);
+  useSeo({ title: seo.getInvolved.title, description: seo.getInvolved.description, path: '/get-involved', image: seo.getInvolved.image, jsonLd });
   return (
     <>
-      <section className={`${wrap} pt-14 md:pt-20`}>
+      <section className={`${wrap} pt-8 md:pt-12`}>
+        <Breadcrumbs items={crumbs} className="mb-8" />
         <Eyebrow rule>{getInvolved.label}</Eyebrow>
         <Display as="h1" lead={getInvolved.titleLead} accent={getInvolved.titleAccent} size="xl" className="mt-6" />
         <p className="mt-6 max-w-2xl text-[1.08rem] leading-relaxed text-muted">{getInvolved.body}</p>
@@ -35,6 +43,7 @@ export default function GetInvolved() {
           </article>
         ))}
       </section>
+      <RelatedLinks links={related.getInvolved} />
     </>
   );
 }

@@ -1,13 +1,16 @@
+import { lazy } from 'react';
 import { createBrowserRouter, createHashRouter, RouterProvider } from 'react-router-dom';
 import { SiteLayout } from './components/SiteLayout';
-import Community from './pages/Community';
-import GetInvolved from './pages/GetInvolved';
-import Home from './pages/Home';
-import Learn from './pages/Learn';
-import NotFound from './pages/NotFound';
-import Shop from './pages/Shop';
-import UnderstandIbd from './pages/UnderstandIbd';
-import UnderstandIbs from './pages/UnderstandIbs';
+
+// Route-level code splitting keeps the first load small; the 3D scene loads separately on demand.
+const Home = lazy(() => import('./pages/Home'));
+const Learn = lazy(() => import('./pages/Learn'));
+const UnderstandIbd = lazy(() => import('./pages/UnderstandIbd'));
+const UnderstandIbs = lazy(() => import('./pages/UnderstandIbs'));
+const Community = lazy(() => import('./pages/Community'));
+const GetInvolved = lazy(() => import('./pages/GetInvolved'));
+const Shop = lazy(() => import('./pages/Shop'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 const routes = [
   {

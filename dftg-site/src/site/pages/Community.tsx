@@ -1,15 +1,23 @@
-import { community, org } from '../data';
+import { useMemo } from 'react';
+import { community, org, related, seo } from '../data';
+import { breadcrumbSchema, useSeo } from '../seo';
+import { Breadcrumbs } from '../components/Breadcrumbs';
+import { RelatedLinks } from '../components/RelatedLinks';
 import { StoryCards } from '../components/sections';
 import { ButtonLink, Display, Eyebrow, Reveal } from '../components/ui';
 
 const wrap = 'mx-auto max-w-[1400px] px-5 md:px-10';
 
 export default function Community() {
+  const crumbs = useMemo(() => [{ name: 'Home', path: '/' }, { name: 'Community', path: '/community' }], []);
+  const jsonLd = useMemo(() => [breadcrumbSchema(crumbs)], [crumbs]);
+  useSeo({ title: seo.community.title, description: seo.community.description, path: '/community', image: seo.community.image, jsonLd });
   const share = community.share;
   const mailto = `mailto:${org.email}?subject=${encodeURIComponent('My story for Don’t Fret the Gut')}`;
   return (
     <>
-      <section className={`${wrap} pt-14 md:pt-20`}>
+      <section className={`${wrap} pt-8 md:pt-12`}>
+        <Breadcrumbs items={crumbs} className="mb-8" />
         <Eyebrow rule>Community</Eyebrow>
         <Display as="h1" lead={community.titleLead} accent={community.titleAccent} size="xl" className="mt-6" />
         <p className="mt-6 max-w-2xl text-[1.08rem] leading-relaxed text-muted">{community.body}</p>
@@ -42,6 +50,7 @@ export default function Community() {
           </div>
         </Reveal>
       </section>
+      <RelatedLinks links={related.community} />
     </>
   );
 }

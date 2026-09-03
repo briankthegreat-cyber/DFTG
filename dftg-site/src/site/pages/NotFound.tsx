@@ -1,6 +1,9 @@
+import { seo } from '../data';
+import { useSeo } from '../seo';
 import { ButtonLink, Display, Eyebrow } from '../components/ui';
 
 export default function NotFound() {
+  useSeo({ title: seo.notFound.title, description: seo.notFound.description, path: '/404', noindex: true });
   return (
     <section className="mx-auto max-w-[1400px] px-5 py-24 md:px-10">
       <Eyebrow rule>Page not found</Eyebrow>

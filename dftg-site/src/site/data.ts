@@ -105,6 +105,7 @@ export interface Guide {
   tone: 'forest' | 'peach' | 'sage';
   badge?: string;
   sections: { heading: string; body: string }[];
+  sources: { name: string; url: string }[];
 }
 
 export const guides: Guide[] = [
@@ -134,6 +135,10 @@ export const guides: Guide[] = [
         body: 'A friend with IBD, a support group, or an online community can make the difference between coping alone and coping together.',
       },
     ],
+    sources: [
+      { name: 'Crohn’s & Colitis Foundation: Newly diagnosed', url: 'https://www.crohnscolitisfoundation.org/patientsandcaregivers/newly-diagnosed' },
+      { name: 'NIDDK: Crohn’s disease', url: 'https://www.niddk.nih.gov/health-information/digestive-diseases/crohns-disease' },
+    ],
   },
   {
     slug: 'prepare-for-gi-appointment',
@@ -156,6 +161,10 @@ export const guides: Guide[] = [
         body: 'Every plan has a next checkpoint: a lab result, a scope, a medicine reaching full effect. Knowing the checkpoint makes waiting easier.',
       },
     ],
+    sources: [
+      { name: 'American College of Gastroenterology: Patient resources', url: 'https://gi.org/patients/' },
+      { name: 'Crohn’s & Colitis Foundation: Talking with your doctor', url: 'https://www.crohnscolitisfoundation.org/patientsandcaregivers' },
+    ],
   },
   {
     slug: 'fatigue-is-more-than-tired',
@@ -177,6 +186,10 @@ export const guides: Guide[] = [
         heading: 'Small, kind adjustments count',
         body: 'Shorter blocks of activity, protected rest, and asking for accommodations at work or school are strategies, not surrender.',
       },
+    ],
+    sources: [
+      { name: 'Crohn’s & Colitis Foundation: Fatigue', url: 'https://www.crohnscolitisfoundation.org/patientsandcaregivers/what-is-ibd/fatigue' },
+      { name: 'NIDDK: Digestive diseases', url: 'https://www.niddk.nih.gov/health-information/digestive-diseases' },
     ],
   },
 ];
@@ -412,5 +425,92 @@ export const ibsPage = {
     { name: 'Rome Foundation', url: 'https://theromefoundation.org/' },
     { name: 'NIDDK: Irritable bowel syndrome', url: 'https://www.niddk.nih.gov/health-information/digestive-diseases/irritable-bowel-syndrome' },
     { name: 'American College of Gastroenterology', url: 'https://gi.org/topics/irritable-bowel-syndrome/' },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Per-page SEO: unique titles and descriptions, and the social image for each page.
+// ---------------------------------------------------------------------------
+export interface PageSeo { title: string; description: string; image: string }
+
+export const seo: Record<'home' | 'learn' | 'ibd' | 'ibs' | 'community' | 'getInvolved' | 'shop' | 'notFound', PageSeo> = {
+  home: {
+    title: 'Don’t Fret the Gut: digestive health, spoken plainly',
+    description: 'A non-profit making life with IBD and IBS feel less isolating: plain-language guides, a 3D explainer of the gut, honest community stories and ways to help.',
+    image: 'og/home.jpg',
+  },
+  learn: {
+    title: 'Learn about IBD and IBS',
+    description: 'What Crohn’s disease, ulcerative colitis and IBS are, how they differ, and short guides for real questions, checked against trusted health sources.',
+    image: 'og/learn.jpg',
+  },
+  ibd: {
+    title: 'Understand IBD: Crohn’s disease and ulcerative colitis in 3D',
+    description: 'See where inflammatory bowel disease happens in a 3D tour of the digestive tract, then read a plain guide to Crohn’s, ulcerative colitis, flares and remission.',
+    image: 'og/ibd.jpg',
+  },
+  ibs: {
+    title: 'Understand IBS: invisible on a scan, real in a life',
+    description: 'What irritable bowel syndrome is, why it happens, how it is diagnosed, what helps, and why a normal scope does not mean nothing is wrong.',
+    image: 'og/ibs.jpg',
+  },
+  community: {
+    title: 'Community stories about living with IBD and IBS',
+    description: 'Patient stories about living with Crohn’s disease, ulcerative colitis and IBS, and how to share your own story with consent.',
+    image: 'og/community.jpg',
+  },
+  getInvolved: {
+    title: 'Get involved: donate, volunteer, partner, fundraise',
+    description: 'Turn care into collective action. Support plain-language education, patient voices and digestive-health programs rooted in dignity.',
+    image: 'og/get-involved.jpg',
+  },
+  shop: {
+    title: 'Shop the core collection',
+    description: 'Wear what you stand for: tees, fleece, outerwear and bottoms in washed black, ivory, forest and navy. Net shop proceeds support the mission.',
+    image: 'og/shop.jpg',
+  },
+  notFound: {
+    title: 'Page not found',
+    description: 'That page has moved on. Everything on Don’t Fret the Gut is one click from the menu.',
+    image: 'og/home.jpg',
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Internal links shown at the bottom of inner pages ("Keep going").
+// ---------------------------------------------------------------------------
+export interface RelatedLink { label: string; to: string; blurb: string }
+
+export const related: Record<'learn' | 'ibd' | 'ibs' | 'community' | 'getInvolved' | 'shop', RelatedLink[]> = {
+  learn: [
+    { label: 'Understand IBD in 3D', to: '/learn/ibd', blurb: 'A guided tour of where Crohn’s and colitis happen.' },
+    { label: 'Understand IBS', to: '/learn/ibs', blurb: 'Real symptoms, normal scans, and what helps.' },
+    { label: 'Community stories', to: '/community', blurb: 'People living with these conditions, in their own words.' },
+  ],
+  ibd: [
+    { label: 'Understand IBS', to: '/learn/ibs', blurb: 'Similar names, meaningfully different.' },
+    { label: 'How to prepare for a GI appointment', to: '/learn#guide-prepare-for-gi-appointment', blurb: 'A symptom log and question list for your next visit.' },
+    { label: 'Newly diagnosed with Crohn’s?', to: '/learn#guide-newly-diagnosed-crohns', blurb: 'What I wish I knew when I first heard the words.' },
+    { label: 'Community stories', to: '/community', blurb: 'Maya, Jordan and Sam on hiding, being believed, and asking for room.' },
+  ],
+  ibs: [
+    { label: 'Understand IBD', to: '/learn/ibd', blurb: 'When inflammation is the story, in 3D.' },
+    { label: 'When fatigue is more than feeling tired', to: '/learn#guide-fatigue-is-more-than-tired', blurb: 'Why gut conditions drain energy and how to talk about it.' },
+    { label: 'Share your story', to: '/community#share', blurb: 'Being believed matters. Your words might be what someone needs.' },
+  ],
+  community: [
+    { label: 'Learn the basics', to: '/learn', blurb: 'IBD, IBS, and the difference between them.' },
+    { label: 'Get involved', to: '/get-involved', blurb: 'Donate, volunteer, partner or fundraise.' },
+    { label: 'The 3D explainer', to: '/learn/ibd#explainer', blurb: 'See what a flare and remission actually look like.' },
+  ],
+  getInvolved: [
+    { label: 'Shop the core collection', to: '/shop', blurb: 'Net proceeds support the mission.' },
+    { label: 'Share your story', to: '/community#share', blurb: 'Another way to help someone feel less alone.' },
+    { label: 'Learn about IBD and IBS', to: '/learn', blurb: 'Send a friend somewhere trustworthy.' },
+  ],
+  shop: [
+    { label: 'Where the money goes', to: '/get-involved#donate', blurb: 'Education, community and awareness.' },
+    { label: 'Understand IBD', to: '/learn/ibd', blurb: 'The reason this exists, in 3D.' },
+    { label: 'Community stories', to: '/community', blurb: 'The people behind the mission.' },
   ],
 };

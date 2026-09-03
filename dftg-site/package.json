@@ -14,10 +14,13 @@
     "test:e2e": "npm run build && playwright test",
     "build:embed": "PREVIEW_ENTRY=embed vite build --config vite.preview.config.ts && node scripts/make-preview.mjs embed",
     "build:preview": "VITE_ROUTER=hash PREVIEW_ENTRY=site vite build --config vite.preview.config.ts && node scripts/make-preview.mjs site",
-    "build:pages": "VITE_BASE=/DFTG/ vite build && cp dist/index.html dist/404.html",
+    "build:pages": "VITE_BASE=/DFTG/ VITE_SITE_URL=https://briankthegreat-cyber.github.io/DFTG vite build && VITE_BASE=/DFTG/ VITE_SITE_URL=https://briankthegreat-cyber.github.io/DFTG node scripts/prerender.mjs",
     "screenshots": "npm run build:embed && node scripts/screenshots.mjs",
     "screenshots:site": "npm run build && node scripts/site-screenshots.mjs",
-    "video": "npm run build:embed && node scripts/render-video.mjs"
+    "video": "npm run build:embed && node scripts/render-video.mjs",
+    "assets": "node scripts/generate-assets.mjs",
+    "prerender": "node scripts/prerender.mjs",
+    "build:site": "vite build && node scripts/prerender.mjs"
   },
   "dependencies": {
     "@gsap/react": "2.1.2",
@@ -31,7 +34,7 @@
     "react": "19.1.1",
     "react-dom": "19.1.1",
     "react-router-dom": "6.30.1",
-    "three": "0.185.1"
+    "three": "0.180.0"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",

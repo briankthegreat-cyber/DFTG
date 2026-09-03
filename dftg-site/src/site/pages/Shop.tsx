@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import CountUp from '@react-bits/TextAnimations/CountUp/CountUp';
-import { shop } from '../data';
+import { related, seo, shop } from '../data';
+import { breadcrumbSchema, faqSchema, productListSchema, useSeo } from '../seo';
+import { Breadcrumbs } from '../components/Breadcrumbs';
+import { RelatedLinks } from '../components/RelatedLinks';
 import { ProductGrid } from '../components/sections';
 import { Display, Eyebrow, Faq, Reveal, SectionIndex } from '../components/ui';
 
@@ -8,11 +11,17 @@ const wrap = 'mx-auto max-w-[1400px] px-5 md:px-10';
 type Category = (typeof shop.categories)[number];
 
 export default function Shop() {
+  const crumbs = useMemo(() => [{ name: 'Home', path: '/' }, { name: 'Shop', path: '/shop' }], []);
+  const jsonLd = useMemo(() => [breadcrumbSchema(crumbs), productListSchema(shop.products), faqSchema(shop.faq)], [crumbs]);
+  useSeo({ title: seo.shop.title, description: seo.shop.description, path: '/shop', image: seo.shop.image, jsonLd });
   const [category, setCategory] = useState<Category>('All');
   const products = category === 'All' ? shop.products : shop.products.filter((p) => p.category === category);
   return (
     <>
-      <section className={`${wrap} grid gap-12 pt-14 md:grid-cols-[0.75fr_1.25fr] md:pt-20`}>
+      <section className={`${wrap} pt-8 md:pt-12`}>
+        <Breadcrumbs items={crumbs} />
+      </section>
+      <section className={`${wrap} grid gap-12 pt-8 md:grid-cols-[0.75fr_1.25fr]`}>
         <div>
           <SectionIndex index={shop.index} label={shop.label} />
           <Display as="h1" lines={shop.titleLines.map((t) => ({ text: t }))} size="xl" className="mt-4" />
@@ -66,6 +75,7 @@ export default function Shop() {
           <Faq items={shop.faq} />
         </div>
       </section>
+      <RelatedLinks links={related.shop} />
     </>
   );
 }

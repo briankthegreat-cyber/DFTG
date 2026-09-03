@@ -1,8 +1,10 @@
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import ScrollVelocity from '@react-bits/TextAnimations/ScrollVelocity/ScrollVelocity';
-import { Explainer } from '@/explainer/Explainer.tsx';
-import { community, getInvolved, hero, learn, resources, shop, ticker } from '../data';
+import { LazyExplainer } from '@/explainer/LazyExplainer.tsx';
+import { community, getInvolved, guides, hero, learn, resources, seo, shop, ticker } from '../data';
+import { articleListSchema, useSeo } from '../seo';
 import { ComparisonTable, ConditionCards, DonateBox, ExplainerTeaser, GuideCards, NewsletterPanel, ProductGrid, StoryCards, WaysGrid } from '../components/sections';
 import { ButtonLink, Display, Eyebrow, Reveal, SectionIndex, TextLink } from '../components/ui';
 
@@ -35,7 +37,7 @@ function Hero() {
       <div className="relative mx-auto w-full max-w-[560px]">
         <span aria-hidden="true" className="absolute -top-6 -right-4 z-10 h-24 w-24 rounded-full bg-peach/90 sm:-right-8 sm:h-28 sm:w-28" />
         <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-2xl bg-forest-deep">
-          <Explainer options={{ ambient: true, theme: 'dark' }} />
+          <LazyExplainer options={{ ambient: true, theme: 'dark' }} />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-forest-deep/90 via-forest-deep/40 to-transparent p-7 pt-24 text-ivory sm:p-9">
             <p className="font-display text-[1.6rem] leading-[1.15] italic sm:text-[1.9rem]">“{hero.pull}”</p>
             <p className="mt-4 text-[0.66rem] font-semibold tracking-[0.28em] text-peach uppercase">{hero.arch.eyebrow} · {hero.arch.title}</p>
@@ -70,6 +72,8 @@ function Ticker() {
 }
 
 export default function Home() {
+  const jsonLd = useMemo(() => [articleListSchema(guides)], []);
+  useSeo({ title: seo.home.title, description: seo.home.description, path: '/', image: seo.home.image, jsonLd });
   return (
     <>
       <Hero />

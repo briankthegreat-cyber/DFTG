@@ -1,5 +1,9 @@
-import { Explainer } from '@/explainer/Explainer.tsx';
-import { ibdPage, org } from '../data';
+import { useMemo } from 'react';
+import { LazyExplainer } from '@/explainer/LazyExplainer.tsx';
+import { ibdPage, org, related, seo } from '../data';
+import { breadcrumbSchema, faqSchema, medicalPageSchema, useSeo, videoSchema } from '../seo';
+import { Breadcrumbs } from '../components/Breadcrumbs';
+import { RelatedLinks } from '../components/RelatedLinks';
 import { useExplainerCta } from '../components/sections';
 import { ButtonLink, Display, Eyebrow, Faq, Reveal, SourceList } from '../components/ui';
 
@@ -8,9 +12,28 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
 
 export default function UnderstandIbd() {
   const cta = useExplainerCta();
+  const crumbs = useMemo(() => [{ name: 'Home', path: '/' }, { name: 'Learn', path: '/learn' }, { name: 'Understand IBD', path: '/learn/ibd' }], []);
+  const jsonLd = useMemo(() => [
+    breadcrumbSchema(crumbs),
+    medicalPageSchema({
+      name: seo.ibd.title,
+      description: seo.ibd.description,
+      path: '/learn/ibd',
+      conditions: [
+        { name: 'Inflammatory bowel disease', alternateName: ['IBD'] },
+        { name: 'Crohn’s disease' },
+        { name: 'Ulcerative colitis' },
+      ],
+      sources: ibdPage.sources,
+    }),
+    faqSchema(ibdPage.faq),
+    videoSchema(),
+  ], [crumbs]);
+  useSeo({ title: seo.ibd.title, description: seo.ibd.description, path: '/learn/ibd', image: seo.ibd.image, type: 'article', jsonLd });
   return (
     <>
-      <section className={`${wrap} pt-14 md:pt-20`}>
+      <section className={`${wrap} pt-8 md:pt-12`}>
+        <Breadcrumbs items={crumbs} className="mb-8" />
         <Eyebrow rule>{ibdPage.eyebrow}</Eyebrow>
         <Display as="h1" lead={ibdPage.titleLead} accent={ibdPage.titleAccent} size="xl" className="mt-6" />
         <p className="mt-6 max-w-2xl text-[1.08rem] leading-relaxed text-muted">{ibdPage.intro}</p>
@@ -18,7 +41,7 @@ export default function UnderstandIbd() {
 
       <section id="explainer" className={`${wrap} scroll-mt-24 pt-12`} aria-label="Inside the gut, 3D explainer">
         <div className="aspect-[4/5] w-full overflow-hidden rounded-2xl bg-forest-deep shadow-[0_40px_80px_-40px_rgba(20,41,31,0.6)] sm:aspect-[16/10]">
-          <Explainer options={{ theme: 'dark', link: cta.link, cta: cta.cta }} />
+          <LazyExplainer options={{ theme: 'dark', link: cta.link, cta: cta.cta }} />
         </div>
         <p className="mt-4 text-xs text-muted">{ibdPage.explainerNote}</p>
       </section>
@@ -65,6 +88,7 @@ export default function UnderstandIbd() {
           </div>
         </div>
       </section>
+      <RelatedLinks links={related.ibd} />
     </>
   );
 }
