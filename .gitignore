@@ -24,8 +24,8 @@ Thumbs.db
 .vscode/
 
 # ibd-3d-animation build output (site/ is the committed single-file build)
-ibd-3d-animation/dist-preview/
-ibd-3d-animation/preview/
-ibd-3d-animation/test-results/
-ibd-3d-animation/playwright-report/
-ibd-3d-animation/.video-frames/
+dftg-site/dist-preview/
+dftg-site/preview/
+dftg-site/test-results/
+dftg-site/playwright-report/
+dftg-site/.video-frames/
